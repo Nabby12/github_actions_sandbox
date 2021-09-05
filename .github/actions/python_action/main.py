@@ -1,3 +1,5 @@
+python:main.py
+
 def main():
     print('test')
 

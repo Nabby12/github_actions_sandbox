@@ -6,10 +6,5 @@ RUN pip install --target=/app -r requirements.txt
 WORKDIR /app
 COPY ./main.py .
 
-# ENV PYTHONPATH /app
-# ENTRYPOINT ["python", "-m", "main.py"]
-
-RUN chmod +x /app/main.py
-
 ENV PYTHONPATH /app
-CMD ["/app/main.py"]
+ENTRYPOINT ["python", "-m", "main.py"]
