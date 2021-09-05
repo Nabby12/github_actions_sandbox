@@ -9,5 +9,7 @@ COPY ./main.py .
 # ENV PYTHONPATH /app
 # ENTRYPOINT ["python", "-m", "main.py"]
 
+RUN chmod +x /app/main.py
+
 ENV PYTHONPATH /app
 CMD ["/app/main.py"]
