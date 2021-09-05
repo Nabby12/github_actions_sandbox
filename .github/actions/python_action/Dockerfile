@@ -6,5 +6,6 @@ RUN pip install --target=/app -r requirements.txt
 WORKDIR /app
 COPY ./main.py .
 
-ENV PYTHONPATH /app
-ENTRYPOINT ["main.py"]
+# ENV PYTHONPATH /app
+# ENTRYPOINT ["python", "-m", "main.py"]
+ENTRYPOINT ["/app/main.py"]
