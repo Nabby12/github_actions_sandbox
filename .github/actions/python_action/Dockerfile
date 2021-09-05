@@ -16,7 +16,6 @@ COPY requirements.txt .
 RUN pip install --target=/app -r requirements.txt
 
 WORKDIR /app
-COPY action.yaml .
 COPY ./main.py main.py
 
 ENV PYTHONPATH /app
