@@ -1,12 +1,18 @@
 name: js action
 description: 'this is a js action'
+
+run: |
+  npm install
+
 inputs:
   sample_input:
     description: 'sample_input'
     required: true
+
 outputs:
   sample_output:
     description: 'sample_output'
+
 runs:
   using: 'node12'
   main: 'index.js'
