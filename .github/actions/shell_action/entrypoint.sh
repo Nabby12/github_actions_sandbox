@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh -l
 
 sample_input="$INPUT_SAMPLE_INPUT"
 
