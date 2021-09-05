@@ -1,0 +1,6 @@
+Thumbs.db
+.vs
+.vscode
+node_modules/
+env*.json
+.env
