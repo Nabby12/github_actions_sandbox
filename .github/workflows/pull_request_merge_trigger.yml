@@ -1,9 +1,9 @@
 name: pull request merge trigger
 
 on:
-  pull_request:
-    branches: main
-    types: [closed]
+  # pull_request:
+  #   branches: main
+  #   types: [closed]
   push:
     paths: .github/workflows/pull_request_merge_trigger.yml
 
@@ -12,7 +12,7 @@ jobs:
     name: pull request merge trigger
     runs-on: ubuntu-20.04
     timeout-minutes: 5
-    if: ${{ github.event.pull_request.merged == true }}
+    # if: ${{ github.event.pull_request.merged == true }}
 
     strategy:
       matrix:
