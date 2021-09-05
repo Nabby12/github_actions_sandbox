@@ -1,5 +1,9 @@
-def main():
-    print('test')
+SAMPLE_INPUT = os.environ['INPUT_SAMPLE_INPUT']
 
-if __name__ == "__main__":
+def main():
+    sample_output = SAMPLE_INPUT + ' -> sample_output'
+
+    print("::set-output name=sample_output:: " + sample_output)
+
+if __name__ == '__main__':
     main()
