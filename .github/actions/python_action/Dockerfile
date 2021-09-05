@@ -7,4 +7,4 @@ WORKDIR /app
 COPY ./main.py .
 
 ENV PYTHONPATH /app
-ENTRYPOINT ["python", "-m", "main.py"]
+ENTRYPOINT ["python", "-m", "main"]
