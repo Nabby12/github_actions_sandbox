@@ -2,7 +2,9 @@ name: js actions
 
 on:
   push:
-    paths: .github/workflows/js_actions.yml
+    paths: |
+      .github/workflows/js_actions.yml
+      .github/actions/js_action/*
 
 jobs:
   job1:
