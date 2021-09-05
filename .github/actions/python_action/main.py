@@ -1,3 +1,5 @@
+import os
+
 SAMPLE_INPUT = os.environ['INPUT_SAMPLE_INPUT']
 
 def main():
