@@ -26,7 +26,7 @@ jobs:
         with:
           sample_input: sample_input
       
-      - name: Get shell action Output
+      - name: Get python action Output
         id: get-output
         env:
           SAMPLE_OUTPUT: ${{ steps.python-action.outputs.sample_output }}
