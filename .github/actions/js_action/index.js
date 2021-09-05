@@ -1,5 +1,3 @@
-'use strict'
-
 const core = require('@actions/core')
 
 const SAMPLE_INPUT = core.getInput('sample_input')
