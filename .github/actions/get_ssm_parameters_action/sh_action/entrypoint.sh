@@ -11,12 +11,14 @@ echo "${PARAMS_ARRAY[*]}"
 echo "${#PARAMS_ARRAY[*]}"
 echo '---'
 
+ARRAY_COUNT=`expr "${#PARAMS_ARRAY[*]}"`
+
 SSM_PARAMETERS="'{"
 i=1
 for param in "${PARAMS_ARRAY[@]}"
 do
     END_STRING=","
-    if [ i -eq "$(("${#PARAMS_ARRAY[*]}"))" ]; then
+    if [ i -eq "${ARRAY_COUNT}" ]; then
         END_STRING="}'"
     fi
 
