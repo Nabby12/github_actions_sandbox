@@ -6,6 +6,10 @@ sample_input_args=$(echo -n "${sample_input_args}" | sed --null-data -e 's/\n/,/
 
 IFS=, PARAMS_ARRAY=(${sample_input_args})
 
+echo '---'
+echo "${PARAMS_ARRAY[*]}"
+echo '---'
+
 SSM_PARAMETERS="'{"
 i=1
 for param in "${PARAMS_ARRAY[@]}"
