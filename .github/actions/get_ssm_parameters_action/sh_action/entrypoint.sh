@@ -15,13 +15,12 @@ i=1
 for param in "${PARAMS_ARRAY[@]}"
 do
     END_STRING=","
-    if [ i -eq ${ARRAY_COUNT} ]; then
+    if [ "${i}" -eq "${ARRAY_COUNT"} ]; then
         END_STRING="}'"
     fi
 
     SSM_PARAMETERS="${SSM_PARAMETERS}"\""${param}"\"\:\""${param}"\""${END_STRING}"
     let i++
-    echo "${i}"
 done
 
 SSM_PARAMETERS="${SSM_PARAMETERS}""}"
