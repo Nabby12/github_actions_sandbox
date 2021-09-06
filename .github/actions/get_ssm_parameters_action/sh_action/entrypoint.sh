@@ -1,5 +1,7 @@
 #!/bin/bash
 
+aws --version
+
 # input args
 sample_input_args="$INPUT_SAMPLE_INPUT_ARGS"
 sample_input_args=$(echo -n "${sample_input_args}" | sed --null-data -e 's/\n/,/g;')
