@@ -8,6 +8,8 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
 RUN unzip awscliv2.zip 1> /dev/null
 RUN sudo ./aws/install 1> /dev/null
 
+RUN sudo apt -y install jq 1> /dev/null
+
 COPY entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
