@@ -81,5 +81,29 @@ jobs:
           echo "${TEST_VALUE1}"
           echo "${TEST_VALUE2}"
 
-      - name: ----- get time for js end
-        run: echo "js_end"; echo `date "+%Y-%m-%d %H:%M:%S"`
+      - name: ----- get time for py end
+        run: echo "py_end"; echo `date "+%Y-%m-%d %H:%M:%S"`
+
+      - name: get time for sh start -----
+        run: echo "sh_start"; echo `date "+%Y-%m-%d %H:%M:%S"`
+
+      - name: Run sh action
+        id: sh-action
+        uses: ./.github/actions/get_ssm_parameters_action/sh_action
+        with:
+          sample_input_args: |-
+            TEST_VALUE1
+            TEST_VALUE2
+
+      - name: Get sh action Output
+        id: get-sh-output
+        env:
+          SSM_PARAMETERS: ${{ steps.sh-action.outputs.ssm_parameters }}
+        run: |
+          TEST_VALUE1="$(jq -r '.TEST_VALUE1' <(echo "${SSM_PARAMETERS}"))"
+          TEST_VALUE2="$(jq -r '.TEST_VALUE2' <(echo "${SSM_PARAMETERS}"))"
+          echo "${TEST_VALUE1}"
+          echo "${TEST_VALUE2}"
+
+      - name: ----- get time for sh end
+        run: echo "sh_end"; echo `date "+%Y-%m-%d %H:%M:%S"`
