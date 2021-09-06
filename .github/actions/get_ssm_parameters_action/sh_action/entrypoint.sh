@@ -1,14 +1,17 @@
 #!/bin/bash
 
-aws --version
-
 # input args
 sample_input_args="$INPUT_SAMPLE_INPUT_ARGS"
 sample_input_args=$(echo -n "${sample_input_args}" | sed --null-data -e 's/\n/,/g;')
 
 IFS=, PARAMS_ARRAY=(${sample_input_args})
-
 ARRAY_COUNT=`expr "${#PARAMS_ARRAY[*]}"`
+
+SSM_PATH="/test_path/"
+
+aws ssm get-parameter \
+    -name `"${SSM_PATH}"TEST_VALUE1` \
+    --with-decryption
 
 i=1
 for param in "${PARAMS_ARRAY[@]}"
