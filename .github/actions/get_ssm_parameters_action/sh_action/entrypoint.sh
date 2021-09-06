@@ -9,7 +9,7 @@ ARRAY_COUNT=`expr "${#PARAMS_ARRAY[*]}"`
 
 SSM_PATH="/test_path/"
 TARGET_KEY="${SSM_PATH}"TEST_VALUE1
-echo $(aws ssm get-parameter --name "$(TARGET_KEY)" --with-decryption)
+echo $(aws ssm get-parameter --name "${TARGET_KEY}" --with-decryption)
 
 i=1
 for param in "${PARAMS_ARRAY[@]}"
