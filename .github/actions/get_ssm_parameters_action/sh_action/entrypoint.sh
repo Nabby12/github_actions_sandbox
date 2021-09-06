@@ -8,9 +8,7 @@ IFS=, PARAMS_ARRAY=(${sample_input_args})
 ARRAY_COUNT=`expr "${#PARAMS_ARRAY[*]}"`
 
 SSM_PATH="/test_path/"
-aws ssm get-parameter \
-    --name  $("${XXX}"TEST_VALUE1) \
-    --with-decryption
+echo $(aws ssm get-parameter --name  $("${XXX}"TEST_VALUE1) --with-decryption)
 
 i=1
 for param in "${PARAMS_ARRAY[@]}"
