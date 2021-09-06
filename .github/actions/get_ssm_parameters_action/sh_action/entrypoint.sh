@@ -16,7 +16,7 @@ i=1
 for param in "${PARAMS_ARRAY[@]}"
 do
     END_STRING=","
-    if [ i -eq $((${#PARAMS_ARRAY[*]})) ]; then
+    if [ i -eq "$(("${#PARAMS_ARRAY[*]}"))" ]; then
         END_STRING="}'"
     fi
 
