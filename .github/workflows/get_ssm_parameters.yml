@@ -48,10 +48,10 @@ jobs:
       - name: Get js action Output
         id: get-output
         env:
-          SAMPLE_OUTPUT_ARGS: ${{ steps.js-action.outputs.sample_output_args }}
+          SSM_PARAMETERS: ${{ steps.js-action.outputs.ssm_parameters }}
         run: |
-          TEST_VALUE1="$(jq '.TEST_VALUE1' <(echo "${SAMPLE_OUTPUT_ARGS}"))"
-          TEST_VALUE2="$(jq '.TEST_VALUE2' <(echo "${SAMPLE_OUTPUT_ARGS}"))"
+          TEST_VALUE1="$(jq '.TEST_VALUE1' <(echo "${SSM_PARAMETERS}"))"
+          TEST_VALUE2="$(jq '.TEST_VALUE2' <(echo "${SSM_PARAMETERS}"))"
           echo "${TEST_VALUE1}"
           echo "${TEST_VALUE2}"
 

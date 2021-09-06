@@ -7,8 +7,8 @@ inputs:
     required: true
 
 outputs:
-  sample_output_args:
-    description: 'sample_output_args'
+  ssm_parameters:
+    description: 'ssm_parameters'
 
 runs:
   using: 'node12'
