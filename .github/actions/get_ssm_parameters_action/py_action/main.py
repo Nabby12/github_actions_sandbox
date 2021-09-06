@@ -10,7 +10,7 @@ def main():
     ssm_parameters = {}
 
     ssm_path = '/test_path/'
-    for SAMPLE_INPUT_ARGS in arg:
+    for arg in SAMPLE_INPUT_ARGS:
         try: 
             response = ssm.get_parameters(
                 Name = ssm_path + arg,
