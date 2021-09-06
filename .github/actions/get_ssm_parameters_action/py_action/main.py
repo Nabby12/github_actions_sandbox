@@ -17,7 +17,7 @@ def main():
                 WithDecryption = True
             )
             ssm_parameters[arg] = response['Parameter']['Value']
-            print 'get ssm parameter succeeded.'
+            print('get ssm parameter succeeded.')
         except Exception as err:
             print(err)
             raise Exception ('get ssm parameter failed.')
