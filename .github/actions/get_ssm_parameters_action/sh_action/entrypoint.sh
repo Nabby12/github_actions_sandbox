@@ -2,6 +2,7 @@
 
 # input args
 sample_input_args="$INPUT_SAMPLE_INPUT_args"
+echo "${sample_input_args}"
 sample_input_args=$(echo "${sample_input_args}" | sed --null-data -e 's/\n/,/g;')
 
 echo "---"
