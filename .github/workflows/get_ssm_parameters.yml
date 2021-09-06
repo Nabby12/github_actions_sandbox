@@ -31,58 +31,58 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ASSUME_ROLE_ARN }}
           role-duration-seconds: 900
 
-      - name: get time for js start -----
-        run: echo "js_start"; echo `date "+%Y-%m-%d %H:%M:%S"`
+      # - name: get time for js start -----
+      #   run: echo "js_start"; echo `date "+%Y-%m-%d %H:%M:%S"`
 
-      - name: Run npm install for actions
-        run: |
-          cd .github/actions/get_ssm_parameters_action/js_action
-          npm install
+      # - name: Run npm install for actions
+      #   run: |
+      #     cd .github/actions/get_ssm_parameters_action/js_action
+      #     npm install
 
-      - name: Run js action
-        id: js-action
-        uses: ./.github/actions/get_ssm_parameters_action/js_action
-        with:
-          sample_input_args: |-
-            TEST_VALUE1
-            TEST_VALUE2
+      # - name: Run js action
+      #   id: js-action
+      #   uses: ./.github/actions/get_ssm_parameters_action/js_action
+      #   with:
+      #     sample_input_args: |-
+      #       TEST_VALUE1
+      #       TEST_VALUE2
 
-      - name: Get js action Output
-        id: get-js-output
-        env:
-          SSM_PARAMETERS: ${{ steps.js-action.outputs.ssm_parameters }}
-        run: |
-          TEST_VALUE1="$(jq -r '.TEST_VALUE1' <(echo "${SSM_PARAMETERS}"))"
-          TEST_VALUE2="$(jq -r '.TEST_VALUE2' <(echo "${SSM_PARAMETERS}"))"
-          echo "${TEST_VALUE1}"
-          echo "${TEST_VALUE2}"
+      # - name: Get js action Output
+      #   id: get-js-output
+      #   env:
+      #     SSM_PARAMETERS: ${{ steps.js-action.outputs.ssm_parameters }}
+      #   run: |
+      #     TEST_VALUE1="$(jq -r '.TEST_VALUE1' <(echo "${SSM_PARAMETERS}"))"
+      #     TEST_VALUE2="$(jq -r '.TEST_VALUE2' <(echo "${SSM_PARAMETERS}"))"
+      #     echo "${TEST_VALUE1}"
+      #     echo "${TEST_VALUE2}"
 
-      - name: ----- get time for js end
-        run: echo "js_end"; echo `date "+%Y-%m-%d %H:%M:%S"`
+      # - name: ----- get time for js end
+      #   run: echo "js_end"; echo `date "+%Y-%m-%d %H:%M:%S"`
 
-      - name: get time for py start -----
-        run: echo "py_start"; echo `date "+%Y-%m-%d %H:%M:%S"`
+      # - name: get time for py start -----
+      #   run: echo "py_start"; echo `date "+%Y-%m-%d %H:%M:%S"`
 
-      - name: Run py action
-        id: py-action
-        uses: ./.github/actions/get_ssm_parameters_action/py_action
-        with:
-          sample_input_args: |-
-            TEST_VALUE1
-            TEST_VALUE2
+      # - name: Run py action
+      #   id: py-action
+      #   uses: ./.github/actions/get_ssm_parameters_action/py_action
+      #   with:
+      #     sample_input_args: |-
+      #       TEST_VALUE1
+      #       TEST_VALUE2
 
-      - name: Get py action Output
-        id: get-py-output
-        env:
-          SSM_PARAMETERS: ${{ steps.py-action.outputs.ssm_parameters }}
-        run: |
-          TEST_VALUE1="$(jq -r '.TEST_VALUE1' <(echo "${SSM_PARAMETERS}"))"
-          TEST_VALUE2="$(jq -r '.TEST_VALUE2' <(echo "${SSM_PARAMETERS}"))"
-          echo "${TEST_VALUE1}"
-          echo "${TEST_VALUE2}"
+      # - name: Get py action Output
+      #   id: get-py-output
+      #   env:
+      #     SSM_PARAMETERS: ${{ steps.py-action.outputs.ssm_parameters }}
+      #   run: |
+      #     TEST_VALUE1="$(jq -r '.TEST_VALUE1' <(echo "${SSM_PARAMETERS}"))"
+      #     TEST_VALUE2="$(jq -r '.TEST_VALUE2' <(echo "${SSM_PARAMETERS}"))"
+      #     echo "${TEST_VALUE1}"
+      #     echo "${TEST_VALUE2}"
 
-      - name: ----- get time for py end
-        run: echo "py_end"; echo `date "+%Y-%m-%d %H:%M:%S"`
+      # - name: ----- get time for py end
+      #   run: echo "py_end"; echo `date "+%Y-%m-%d %H:%M:%S"`
 
       - name: get time for sh start -----
         run: echo "sh_start"; echo `date "+%Y-%m-%d %H:%M:%S"`
