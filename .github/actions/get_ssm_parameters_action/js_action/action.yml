@@ -1,0 +1,15 @@
+name: js action
+description: 'this is a js action'
+
+inputs:
+  sample_input_args:
+    description: 'sample_input_args'
+    required: true
+
+outputs:
+  sample_output_args:
+    description: 'sample_output_args'
+
+runs:
+  using: 'node12'
+  main: 'index.js'
