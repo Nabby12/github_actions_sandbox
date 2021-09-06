@@ -4,13 +4,14 @@ on:
   push:
     paths:
       - .github/workflows/get_ssm_parameters.yml
-      - .github/actions/get_ssm_parameters_action/js_action/*
-      - .github/actions/get_ssm_parameters_action/py_action/*
-      - .github/actions/get_ssm_parameters_action/sh_action/*
+      - .github/actions/get_ssm_parameters_action/*
+      # - .github/actions/get_ssm_parameters_action/js_action/*
+      # - .github/actions/get_ssm_parameters_action/py_action/*
+      # - .github/actions/get_ssm_parameters_action/sh_action/*
 
 jobs:
   job1:
-    name: js actions
+    name: get ssm parameters actions
     runs-on: ubuntu-20.04
     timeout-minutes: 5
 
