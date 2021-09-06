@@ -8,8 +8,6 @@ IFS=, PARAMS_ARRAY=(${sample_input_args})
 ARRAY_COUNT=`expr "${#PARAMS_ARRAY[*]}"`
 
 SSM_PATH="/test_path/"
-TARGET_KEY="${SSM_PATH}"TEST_VALUE1
-echo $(aws ssm get-parameter --name "${TARGET_KEY}" --with-decryption)
 
 i=1
 for param in "${PARAMS_ARRAY[@]}"
@@ -21,7 +19,11 @@ do
         END_STRING="}"
     fi
 
-    SSM_PARAMETERS="${SSM_PARAMETERS}"\""${param}"\"\:\""${param}"\""${END_STRING}"
+    TARGET_KEY="${SSM_PATH}"TEST_VALUE1
+    RESPONSE=$(aws ssm get-parameter --name "${TARGET_KEY}" --with-decryption)
+    VALUE="$(jq -r '.Parameter.Value' <(echo "${RESPONSE}"))"
+
+    SSM_PARAMETERS="${SSM_PARAMETERS}"\""${param}"\"\:\""${VALUE}"\""${END_STRING}"
     let i++
 done
 
