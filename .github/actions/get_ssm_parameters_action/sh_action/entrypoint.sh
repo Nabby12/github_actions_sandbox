@@ -1,4 +1,4 @@
-#!/bin/sh -l
+#!/bin/bash
 
 # input args
 sample_input_args="$INPUT_SAMPLE_INPUT_args"
