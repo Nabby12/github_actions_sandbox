@@ -23,7 +23,5 @@ do
     let i++
 done
 
-SSM_PARAMETERS="${SSM_PARAMETERS}""}"
-
 # output arg
 echo "::set-output name=ssm_parameters::$SSM_PARAMETERS"
