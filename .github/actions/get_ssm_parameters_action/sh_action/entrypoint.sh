@@ -22,9 +22,7 @@ do
     TARGET_KEY="${SSM_PATH}""${param}"
     RESPONSE=$(aws ssm get-parameter --name "${TARGET_KEY}" --with-decryption)
     VALUE="$(jq -r '.Parameter.Value' <(echo "${RESPONSE}"))"
-    echo "----"
-    echo "${VALUE}"
-    echo "----"
+
     SSM_PARAMETERS="${SSM_PARAMETERS}"\""${param}"\"\:\""${VALUE}"\""${END_STRING}"
     let i++
 done
