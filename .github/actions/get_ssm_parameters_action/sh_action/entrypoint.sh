@@ -5,7 +5,7 @@ sample_input_args="$INPUT_SAMPLE_INPUT_ARGS"
 echo "---"
 echo "${sample_input_args}"
 echo "---"
-sample_input_args=$(echo "${sample_input_args}" | sed --null-data -e 's/\n/,/g;')
+sample_input_args=$(echo -n "${sample_input_args}" | sed --null-data -e 's/\n/,/g;')
 
 echo "---"
 echo "${sample_input_args}"
