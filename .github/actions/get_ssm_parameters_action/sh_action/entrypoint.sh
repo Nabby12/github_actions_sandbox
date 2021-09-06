@@ -8,6 +8,7 @@ IFS=, PARAMS_ARRAY=(${sample_input_args})
 
 echo '---'
 echo "${PARAMS_ARRAY[*]}"
+echo "${#PARAMS_ARRAY[*]}"
 echo '---'
 
 SSM_PARAMETERS="'{"
