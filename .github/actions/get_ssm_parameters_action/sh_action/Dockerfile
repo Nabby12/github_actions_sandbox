@@ -1,5 +1,4 @@
-FROM alpine:3.10
-# FROM debian:9.5-slim  <--  #!/bin/bash起動可能
+FROM debian:9.5-slim
 
 COPY entrypoint.sh /entrypoint.sh
 
