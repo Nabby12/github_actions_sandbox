@@ -19,7 +19,7 @@ do
         END_STRING="}"
     fi
 
-    TARGET_KEY="${SSM_PATH}"TEST_VALUE1
+    TARGET_KEY="${SSM_PATH}""${param}"
     RESPONSE=$(aws ssm get-parameter --name "${TARGET_KEY}" --with-decryption)
     VALUE="$(jq -r '.Parameter.Value' <(echo "${RESPONSE}"))"
     echo "----"
