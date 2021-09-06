@@ -50,8 +50,8 @@ jobs:
         env:
           SSM_PARAMETERS: ${{ steps.js-action.outputs.ssm_parameters }}
         run: |
-          TEST_VALUE1="$(jq '.TEST_VALUE1' <(echo "${SSM_PARAMETERS}"))"
-          TEST_VALUE2="$(jq '.TEST_VALUE2' <(echo "${SSM_PARAMETERS}"))"
+          TEST_VALUE1="$(jq -r '.TEST_VALUE1' <(echo "${SSM_PARAMETERS}"))"
+          TEST_VALUE2="$(jq -r '.TEST_VALUE2' <(echo "${SSM_PARAMETERS}"))"
           echo "${TEST_VALUE1}"
           echo "${TEST_VALUE2}"
 
