@@ -12,7 +12,7 @@ def main():
     ssm_path = '/test_path/'
     for arg in SAMPLE_INPUT_ARGS:
         try: 
-            response = ssm.get_parameters(
+            response = ssm.get_parameter(
                 Name = ssm_path + arg,
                 WithDecryption = True
             )
