@@ -53,12 +53,13 @@ jobs:
           SSM_PARAMETERS: ${{ steps.js-action.outputs.ssm_parameters }}
         run: |
           PARAMETERS="${SSM_PARAMETERS}" | jq
-          for key in "${!PARAMETERS[@]}"; \
+          for key in "${!PARAMETERS[@]}" \
           do \
               VAR_VALUE=${PARAMETERS[$key]} \
-              SET_OUTPUT_STRING="::set-output name=${key}::${VAR_VALUE}"; \
-              ADD_MASK_STRING="::add-mask::${VAR_VALUE}"; \
-              echo "${SET_OUTPUT_STRING}"; echo "${ADD_MASK_STRING}"; \
+              SET_OUTPUT_STRING="::set-output name=${key}::${VAR_VALUE}" \
+              echo ${SET_OUTPUT_STRING}
+              ADD_MASK_STRING="::add-mask::${VAR_VALUE}" \
+              echo "${SET_OUTPUT_STRING}"; echo "${ADD_MASK_STRING}" \
           done
 
       - name: ----- get time for js end
