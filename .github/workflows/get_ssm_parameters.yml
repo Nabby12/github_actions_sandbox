@@ -52,7 +52,7 @@ jobs:
         env:
           SSM_PARAMETERS: ${{ steps.js-action.outputs.ssm_parameters }}
         run: |
-          PARAMETERS=$(echo "${SSM_PARAMETERS}" | jq -r keys)
+          PARAMETERS=$(echo '"${SSM_PARAMETERS}"' | jq -r keys)
           for key in "${!PARAMETERS[@]}"; \
           do \
               VAR_VALUE=${PARAMETERS[$key]} \
