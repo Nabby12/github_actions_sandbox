@@ -54,7 +54,7 @@ jobs:
         run: |
           PARAMETERS_ARRAY=( \
             TEST_VALUE1 \
-            TEST_VALUE1 \
+            TEST_VALUE2 \
           )
           for key in "${PARAMETERS_ARRAY[@]}"; \
           do \
@@ -87,7 +87,7 @@ jobs:
         run: |
           PARAMETERS_ARRAY=( \
             TEST_VALUE1 \
-            TEST_VALUE1 \
+            TEST_VALUE2 \
           )
           for key in "${PARAMETERS_ARRAY[@]}"; \
           do \
@@ -120,7 +120,7 @@ jobs:
         run: |
           PARAMETERS_ARRAY=( \
             TEST_VALUE1 \
-            TEST_VALUE1 \
+            TEST_VALUE2 \
           )
           for key in "${PARAMETERS_ARRAY[@]}"; \
           do \
