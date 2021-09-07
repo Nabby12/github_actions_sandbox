@@ -131,16 +131,16 @@ jobs:
 
       - name: Check Output Mask
         env:
-          SET_JS_OUTPUT_TEST_VALUE1: ${{ steps.set-js-output.outputs.TEST_VALUE1 }}
-          SET_JS_OUTPUT_TEST_VALUE2: ${{ steps.set-js-output.outputs.TEST_VALUE2 }}
-          SET_PY_OUTPUT_TEST_VALUE1: ${{ steps.set-py-output.outputs.TEST_VALUE1 }}
-          SET_PY_OUTPUT_TEST_VALUE2: ${{ steps.set-py-output.outputs.TEST_VALUE2 }}
-          SET_SH_OUTPUT_TEST_VALUE1: ${{ steps.set-sh-output.outputs.TEST_VALUE1 }}
-          SET_SH_OUTPUT_TEST_VALUE2: ${{ steps.set-sh-output.outputs.TEST_VALUE2 }}
+          JS_OUTPUT_TEST_VALUE1: ${{ steps.set-js-output.outputs.TEST_VALUE1 }}
+          JS_OUTPUT_TEST_VALUE2: ${{ steps.set-js-output.outputs.TEST_VALUE2 }}
+          PY_OUTPUT_TEST_VALUE1: ${{ steps.set-py-output.outputs.TEST_VALUE1 }}
+          PY_OUTPUT_TEST_VALUE2: ${{ steps.set-py-output.outputs.TEST_VALUE2 }}
+          SH_OUTPUT_TEST_VALUE1: ${{ steps.set-sh-output.outputs.TEST_VALUE1 }}
+          SH_OUTPUT_TEST_VALUE2: ${{ steps.set-sh-output.outputs.TEST_VALUE2 }}
         run: |
-          echo "${SET_JS_OUTPUT_TEST_VALUE1}"
-          echo "${SET_JS_OUTPUT_TEST_VALUE2}"
-          echo "${SET_PY_OUTPUT_TEST_VALUE1}"
-          echo "${SET_PY_OUTPUT_TEST_VALUE2}"
-          echo "${SET_SH_OUTPUT_TEST_VALUE1}"
-          echo "${SET_SH_OUTPUT_TEST_VALUE2}"
+          echo "${JS_OUTPUT_TEST_VALUE1}"
+          echo "${JS_OUTPUT_TEST_VALUE2}"
+          echo "${PY_OUTPUT_TEST_VALUE1}"
+          echo "${PY_OUTPUT_TEST_VALUE2}"
+          echo "${SH_OUTPUT_TEST_VALUE1}"
+          echo "${SH_OUTPUT_TEST_VALUE2}"
