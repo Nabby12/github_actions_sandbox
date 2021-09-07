@@ -52,8 +52,17 @@ jobs:
         env:
           SSM_PARAMETERS: ${{ steps.js-action.outputs.ssm_parameters }}
         run: |
-          TEST_VALUE1="$(jq -r '.TEST_VALUE1' <(echo "${SSM_PARAMETERS}"))"
-          TEST_VALUE2="$(jq -r '.TEST_VALUE2' <(echo "${SSM_PARAMETERS}"))"
+          PARAMETERS_ARRAY=( \
+            TEST_VALUE1 \
+            TEST_VALUE1 \
+          )
+          for key in "${PARAMETERS_ARRAY[@]}"; \
+          do \
+              VAR_VALUE="$(jq --arg var_name $key -r '.[$var_name]' <(echo "${SSM_PARAMETERS}"))"; \
+              SET_OUTPUT_STRING="::set-output name=${key}::${VAR_VALUE}"; \
+              ADD_MASK_STRING="::add-mask::${VAR_VALUE}"; \
+              echo "${SET_OUTPUT_STRING}"; echo "${ADD_MASK_STRING}"; \
+          done
           echo "${TEST_VALUE1}"
           echo "${TEST_VALUE2}"
 
@@ -76,8 +85,17 @@ jobs:
         env:
           SSM_PARAMETERS: ${{ steps.py-action.outputs.ssm_parameters }}
         run: |
-          TEST_VALUE1="$(jq -r '.TEST_VALUE1' <(echo "${SSM_PARAMETERS}"))"
-          TEST_VALUE2="$(jq -r '.TEST_VALUE2' <(echo "${SSM_PARAMETERS}"))"
+          PARAMETERS_ARRAY=( \
+            TEST_VALUE1 \
+            TEST_VALUE1 \
+          )
+          for key in "${PARAMETERS_ARRAY[@]}"; \
+          do \
+              VAR_VALUE="$(jq --arg var_name $key -r '.[$var_name]' <(echo "${SSM_PARAMETERS}"))"; \
+              SET_OUTPUT_STRING="::set-output name=${key}::${VAR_VALUE}"; \
+              ADD_MASK_STRING="::add-mask::${VAR_VALUE}"; \
+              echo "${SET_OUTPUT_STRING}"; echo "${ADD_MASK_STRING}"; \
+          done
           echo "${TEST_VALUE1}"
           echo "${TEST_VALUE2}"
 
@@ -100,8 +118,17 @@ jobs:
         env:
           SSM_PARAMETERS: ${{ steps.sh-action.outputs.ssm_parameters }}
         run: |
-          TEST_VALUE1="$(jq -r '.TEST_VALUE1' <(echo "${SSM_PARAMETERS}"))"
-          TEST_VALUE2="$(jq -r '.TEST_VALUE2' <(echo "${SSM_PARAMETERS}"))"
+          PARAMETERS_ARRAY=( \
+            TEST_VALUE1 \
+            TEST_VALUE1 \
+          )
+          for key in "${PARAMETERS_ARRAY[@]}"; \
+          do \
+              VAR_VALUE="$(jq --arg var_name $key -r '.[$var_name]' <(echo "${SSM_PARAMETERS}"))"; \
+              SET_OUTPUT_STRING="::set-output name=${key}::${VAR_VALUE}"; \
+              ADD_MASK_STRING="::add-mask::${VAR_VALUE}"; \
+              echo "${SET_OUTPUT_STRING}"; echo "${ADD_MASK_STRING}"; \
+          done
           echo "${TEST_VALUE1}"
           echo "${TEST_VALUE2}"
 
