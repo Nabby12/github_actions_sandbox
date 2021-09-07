@@ -11,7 +11,11 @@ if (require.main === module) {
 async function handler() {
   try {
     const sample_output = SAMPLE_INPUT + ' -> sample_output'
-    core.setOutput('sample_output', sample_output)
+
+    // outputに定義する値をマスク
+    core.setSecret(JSON.stringify(ssm_parameters))
+    // outputに取得した値を定義
+    core.setOutput('ssm_parameters', JSON.stringify(ssm_parameters))
   } catch (error) {
     core.setFailed(error.message);
   }
