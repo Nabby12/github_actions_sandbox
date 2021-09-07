@@ -13,9 +13,9 @@ async function handler() {
     const sample_output = SAMPLE_INPUT + ' -> sample_output'
 
     // outputに定義する値をマスク
-    core.setSecret(JSON.stringify(ssm_parameters))
+    core.setSecret(JSON.stringify(sample_output))
     // outputに取得した値を定義
-    core.setOutput('ssm_parameters', JSON.stringify(ssm_parameters))
+    core.setOutput('sample_output', JSON.stringify(sample_output))
   } catch (error) {
     core.setFailed(error.message);
   }
