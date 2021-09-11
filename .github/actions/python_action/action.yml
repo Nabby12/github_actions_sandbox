@@ -1,0 +1,15 @@
+name: python action
+description: 'this is a python action'
+
+inputs:
+  sample_input:
+    description: 'sample_input'
+    required: true
+
+outputs:
+  sample_output:
+    description: 'sample_output'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
