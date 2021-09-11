@@ -1,0 +1,39 @@
+name: js actions
+
+on:
+  push:
+    paths:
+      - .github/workflows/js_actions.yml
+      - .github/actions/js_action/*
+
+jobs:
+  job1:
+    name: js actions
+    runs-on: ubuntu-20.04
+    timeout-minutes: 5
+
+    strategy:
+      matrix:
+        python-version: [3.8]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Run npm install for actions
+        run: |
+          cd .github/actions/js_action
+          npm install
+
+      - name: Run js action
+        id: js-action
+        uses: ./.github/actions/js_action
+        with:
+          sample_input: sample_input
+      
+      - name: Get js action Output
+        id: get-output
+        env:
+          SAMPLE_OUTPUT: ${{ steps.js-action.outputs.sample_output }}
+        run: |
+          echo "${SAMPLE_OUTPUT}"
