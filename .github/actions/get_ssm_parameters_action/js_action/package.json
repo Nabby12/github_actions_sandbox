@@ -1,0 +1,12 @@
+{
+    "name": "js-action",
+    "version": "1.0.0",
+    "description": "js action package",
+    "main": "index.js",
+    "dependencies": {
+        "@actions/core": "^1.5.0",
+        "aws-sdk": "^2.987.0"
+    },
+    "devDependencies": {},
+    "scripts": {}
+}
