@@ -1,0 +1,15 @@
+name: python action
+description: 'this is a python action'
+
+inputs:
+  sample_input_args:
+    description: 'sample_input_args'
+    required: true
+
+outputs:
+  ssm_parameters:
+    description: 'ssm_parameters'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
