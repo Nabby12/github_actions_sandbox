@@ -22,7 +22,8 @@ def main():
             print(err)
             raise Exception ('get ssm parameter failed.')
 
-    print("::set-output name=ssm_parameters:: " + json.dumps(ssm_parameters))
+    print("::add-mask::" + json.dumps(ssm_parameters))
+    print("::set-output name=ssm_parameters::" + json.dumps(ssm_parameters))
 
 if __name__ == '__main__':
     main()

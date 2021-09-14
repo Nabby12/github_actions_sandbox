@@ -27,5 +27,8 @@ do
     let i++
 done
 
+# mask arg
+echo "::add-mask::$SSM_PARAMETERS"
+
 # output arg
 echo "::set-output name=ssm_parameters::$SSM_PARAMETERS"

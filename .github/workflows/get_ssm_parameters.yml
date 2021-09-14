@@ -48,14 +48,21 @@ jobs:
             TEST_VALUE2
 
       - name: Get js action Output
-        id: get-js-output
+        id: set-js-output
         env:
           SSM_PARAMETERS: ${{ steps.js-action.outputs.ssm_parameters }}
         run: |
-          TEST_VALUE1="$(jq -r '.TEST_VALUE1' <(echo "${SSM_PARAMETERS}"))"
-          TEST_VALUE2="$(jq -r '.TEST_VALUE2' <(echo "${SSM_PARAMETERS}"))"
-          echo "${TEST_VALUE1}"
-          echo "${TEST_VALUE2}"
+          PARAMETERS_ARRAY=( \
+            TEST_VALUE1 \
+            TEST_VALUE2 \
+          )
+          for key in "${PARAMETERS_ARRAY[@]}"; \
+          do \
+              VAR_VALUE="$(jq --arg var_name $key -r '.[$var_name]' <(echo "${SSM_PARAMETERS}"))"; \
+              SET_OUTPUT_STRING="::set-output name=${key}::${VAR_VALUE}"; \
+              ADD_MASK_STRING="::add-mask::${VAR_VALUE}"; \
+              echo "${SET_OUTPUT_STRING}"; echo "${ADD_MASK_STRING}"; \
+          done
 
       - name: ----- get time for js end
         run: echo "js_end"; echo `date "+%Y-%m-%d %H:%M:%S"`
@@ -72,14 +79,21 @@ jobs:
             TEST_VALUE2
 
       - name: Get py action Output
-        id: get-py-output
+        id: set-py-output
         env:
           SSM_PARAMETERS: ${{ steps.py-action.outputs.ssm_parameters }}
         run: |
-          TEST_VALUE1="$(jq -r '.TEST_VALUE1' <(echo "${SSM_PARAMETERS}"))"
-          TEST_VALUE2="$(jq -r '.TEST_VALUE2' <(echo "${SSM_PARAMETERS}"))"
-          echo "${TEST_VALUE1}"
-          echo "${TEST_VALUE2}"
+          PARAMETERS_ARRAY=( \
+            TEST_VALUE1 \
+            TEST_VALUE2 \
+          )
+          for key in "${PARAMETERS_ARRAY[@]}"; \
+          do \
+              VAR_VALUE="$(jq --arg var_name $key -r '.[$var_name]' <(echo "${SSM_PARAMETERS}"))"; \
+              SET_OUTPUT_STRING="::set-output name=${key}::${VAR_VALUE}"; \
+              ADD_MASK_STRING="::add-mask::${VAR_VALUE}"; \
+              echo "${SET_OUTPUT_STRING}"; echo "${ADD_MASK_STRING}"; \
+          done
 
       - name: ----- get time for py end
         run: echo "py_end"; echo `date "+%Y-%m-%d %H:%M:%S"`
@@ -96,14 +110,37 @@ jobs:
             TEST_VALUE2
 
       - name: Get sh action Output
-        id: get-sh-output
+        id: set-sh-output
         env:
           SSM_PARAMETERS: ${{ steps.sh-action.outputs.ssm_parameters }}
         run: |
-          TEST_VALUE1="$(jq -r '.TEST_VALUE1' <(echo "${SSM_PARAMETERS}"))"
-          TEST_VALUE2="$(jq -r '.TEST_VALUE2' <(echo "${SSM_PARAMETERS}"))"
-          echo "${TEST_VALUE1}"
-          echo "${TEST_VALUE2}"
+          PARAMETERS_ARRAY=( \
+            TEST_VALUE1 \
+            TEST_VALUE2 \
+          )
+          for key in "${PARAMETERS_ARRAY[@]}"; \
+          do \
+              VAR_VALUE="$(jq --arg var_name $key -r '.[$var_name]' <(echo "${SSM_PARAMETERS}"))"; \
+              SET_OUTPUT_STRING="::set-output name=${key}::${VAR_VALUE}"; \
+              ADD_MASK_STRING="::add-mask::${VAR_VALUE}"; \
+              echo "${SET_OUTPUT_STRING}"; echo "${ADD_MASK_STRING}"; \
+          done
 
       - name: ----- get time for sh end
         run: echo "sh_end"; echo `date "+%Y-%m-%d %H:%M:%S"`
+
+      - name: Check Output Mask
+        env:
+          JS_OUTPUT_TEST_VALUE1: ${{ steps.set-js-output.outputs.TEST_VALUE1 }}
+          JS_OUTPUT_TEST_VALUE2: ${{ steps.set-js-output.outputs.TEST_VALUE2 }}
+          PY_OUTPUT_TEST_VALUE1: ${{ steps.set-py-output.outputs.TEST_VALUE1 }}
+          PY_OUTPUT_TEST_VALUE2: ${{ steps.set-py-output.outputs.TEST_VALUE2 }}
+          SH_OUTPUT_TEST_VALUE1: ${{ steps.set-sh-output.outputs.TEST_VALUE1 }}
+          SH_OUTPUT_TEST_VALUE2: ${{ steps.set-sh-output.outputs.TEST_VALUE2 }}
+        run: |
+          echo "${JS_OUTPUT_TEST_VALUE1}"
+          echo "${JS_OUTPUT_TEST_VALUE2}"
+          echo "${PY_OUTPUT_TEST_VALUE1}"
+          echo "${PY_OUTPUT_TEST_VALUE2}"
+          echo "${SH_OUTPUT_TEST_VALUE1}"
+          echo "${SH_OUTPUT_TEST_VALUE2}"
