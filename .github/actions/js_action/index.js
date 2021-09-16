@@ -17,6 +17,6 @@ async function handler() {
     // outputに取得した値を定義
     core.setOutput('sample_output', JSON.stringify(sample_output))
   } catch (error) {
-    core.setFailed(error.message);
+    core.setFailed(error.message)
   }
 }
