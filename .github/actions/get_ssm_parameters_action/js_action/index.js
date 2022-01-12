@@ -2,11 +2,13 @@
 
 const core = require('@actions/core')
 
-const DEFAULT_REGION = 'ap-northeast-1'
+const DEFAULT_REGION = core.getInput('default_region')
+const SSM_PATH_NAME = core.getInput('ssm_path_name')
+const ENV_NAME = core.getInput('env_name')
+const CD_PARAMETERS = core.getInput('cd_parameters').split('\n')
+const PARAMETERS = core.getInput('parameters').split('\n')
+
 const SSM_VERSION = '2014-11-06'
-
-const SAMPLE_INPUT_ARGS = core.getInput('sample_input_args').split('\n')
-
 const AWS = require('aws-sdk')
 AWS.config.update({
   region: DEFAULT_REGION,
@@ -23,16 +25,27 @@ if (require.main === module) {
 
 async function handler() {
   try {
-    const ssm_path = '/test_path/'
+    const ssm_cd_path = '/cd/'
+    const ssm_path = `/${SSM_PATH_NAME}/${ENV_NAME}/`
+
+    // 取得するパラメータストアのパス+名称を一つの配列に格納
     let ssm_params = []
-    SAMPLE_INPUT_ARGS.map(arg => {
+    CD_PARAMETERS.map(parameter => {
+      const param = {
+        path: ssm_cd_path, 
+        key: parameter
+      }
+      ssm_params.push(param)
+    })
+    PARAMETERS.map(parameter => {
       const param = {
         path: ssm_path, 
-        key: arg
+        key: parameter
       }
       ssm_params.push(param)
     })
 
+    // 対象のパラメータストアの値をすべて取得
     let ssm_parameters = {}
     await Promise.all (
       ssm_params.map(async parameter => {
@@ -54,6 +67,7 @@ async function handler() {
         console.log(response)
       })
     )
+
     // outputに定義する値をマスク
     core.setSecret(JSON.stringify(ssm_parameters))
     // outputに取得した値を定義

@@ -35,15 +35,20 @@ jobs:
         run: echo "js_start"; echo `date "+%Y-%m-%d %H:%M:%S"`
 
       - name: Run npm install for actions
-        run: |
-          cd .github/actions/get_ssm_parameters_action/js_action
-          npm install
+        working-directory: ./.github/actions/get_ssm_parameters_action/js_action
+        run: npm install
 
       - name: Run js action
         id: js-action
         uses: ./.github/actions/get_ssm_parameters_action/js_action
         with:
-          sample_input_args: |-
+          default_region: ${{ secrets.AWS_DEFAULT_REGION }}
+          ssm_path_name: test_path
+          env_name: ${{ secrets.ENV_NAME_DEV }}
+          cd_parameters: |-
+            CD_TEST_VALUE1
+            CD_TEST_VALUE2
+          parameters: |-
             TEST_VALUE1
             TEST_VALUE2
 
@@ -53,6 +58,8 @@ jobs:
           SSM_PARAMETERS: ${{ steps.js-action.outputs.ssm_parameters }}
         run: |
           PARAMETERS_ARRAY=( \
+            CD_TEST_VALUE1 \
+            CD_TEST_VALUE2 \
             TEST_VALUE1 \
             TEST_VALUE2 \
           )
@@ -74,7 +81,13 @@ jobs:
         id: py-action
         uses: ./.github/actions/get_ssm_parameters_action/py_action
         with:
-          sample_input_args: |-
+          default_region: ${{ secrets.AWS_DEFAULT_REGION }}
+          ssm_path_name: test_path
+          env_name: ${{ secrets.ENV_NAME_DEV }}
+          cd_parameters: |-
+            CD_TEST_VALUE1
+            CD_TEST_VALUE2
+          parameters: |-
             TEST_VALUE1
             TEST_VALUE2
 
@@ -84,6 +97,8 @@ jobs:
           SSM_PARAMETERS: ${{ steps.py-action.outputs.ssm_parameters }}
         run: |
           PARAMETERS_ARRAY=( \
+            CD_TEST_VALUE1 \
+            CD_TEST_VALUE2 \
             TEST_VALUE1 \
             TEST_VALUE2 \
           )
@@ -105,7 +120,13 @@ jobs:
         id: sh-action
         uses: ./.github/actions/get_ssm_parameters_action/sh_action
         with:
-          sample_input_args: |-
+          default_region: ${{ secrets.AWS_DEFAULT_REGION }}
+          ssm_path_name: test_path
+          env_name: ${{ secrets.ENV_NAME_DEV }}
+          cd_parameters: |-
+            CD_TEST_VALUE1
+            CD_TEST_VALUE2
+          parameters: |-
             TEST_VALUE1
             TEST_VALUE2
 
@@ -115,6 +136,8 @@ jobs:
           SSM_PARAMETERS: ${{ steps.sh-action.outputs.ssm_parameters }}
         run: |
           PARAMETERS_ARRAY=( \
+            CD_TEST_VALUE1 \
+            CD_TEST_VALUE2 \
             TEST_VALUE1 \
             TEST_VALUE2 \
           )
@@ -131,16 +154,28 @@ jobs:
 
       - name: Check Output Mask
         env:
+          JS_OUTPUT_CD_TEST_VALUE1: ${{ steps.set-js-output.outputs.CD_TEST_VALUE1 }}
+          JS_OUTPUT_CD_TEST_VALUE2: ${{ steps.set-js-output.outputs.CD_TEST_VALUE2 }}
           JS_OUTPUT_TEST_VALUE1: ${{ steps.set-js-output.outputs.TEST_VALUE1 }}
           JS_OUTPUT_TEST_VALUE2: ${{ steps.set-js-output.outputs.TEST_VALUE2 }}
+          PY_OUTPUT_CD_TEST_VALUE1: ${{ steps.set-py-output.outputs.CD_TEST_VALUE1 }}
+          PY_OUTPUT_CD_TEST_VALUE2: ${{ steps.set-py-output.outputs.CD_TEST_VALUE2 }}
           PY_OUTPUT_TEST_VALUE1: ${{ steps.set-py-output.outputs.TEST_VALUE1 }}
           PY_OUTPUT_TEST_VALUE2: ${{ steps.set-py-output.outputs.TEST_VALUE2 }}
+          SH_OUTPUT_CD_TEST_VALUE1: ${{ steps.set-sh-output.outputs.CD_TEST_VALUE1 }}
+          SH_OUTPUT_CD_TEST_VALUE2: ${{ steps.set-sh-output.outputs.CD_TEST_VALUE2 }}
           SH_OUTPUT_TEST_VALUE1: ${{ steps.set-sh-output.outputs.TEST_VALUE1 }}
           SH_OUTPUT_TEST_VALUE2: ${{ steps.set-sh-output.outputs.TEST_VALUE2 }}
         run: |
+          echo "${JS_OUTPUT_CD_TEST_VALUE1}"
+          echo "${JS_OUTPUT_CD_TEST_VALUE2}"
           echo "${JS_OUTPUT_TEST_VALUE1}"
           echo "${JS_OUTPUT_TEST_VALUE2}"
+          echo "${PY_OUTPUT_CD_TEST_VALUE1}"
+          echo "${PY_OUTPUT_CD_TEST_VALUE2}"
           echo "${PY_OUTPUT_TEST_VALUE1}"
           echo "${PY_OUTPUT_TEST_VALUE2}"
+          echo "${SH_OUTPUT_CD_TEST_VALUE1}"
+          echo "${SH_OUTPUT_CD_TEST_VALUE2}"
           echo "${SH_OUTPUT_TEST_VALUE1}"
           echo "${SH_OUTPUT_TEST_VALUE2}"
