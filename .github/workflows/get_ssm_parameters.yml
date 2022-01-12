@@ -113,44 +113,44 @@ jobs:
       - name: ----- get time for py end
         run: echo "py_end"; echo `date "+%Y-%m-%d %H:%M:%S"`
 
-      # - name: get time for sh start -----
-      #   run: echo "sh_start"; echo `date "+%Y-%m-%d %H:%M:%S"`
+      - name: get time for sh start -----
+        run: echo "sh_start"; echo `date "+%Y-%m-%d %H:%M:%S"`
 
-      # - name: Run sh action
-      #   id: sh-action
-      #   uses: ./.github/actions/get_ssm_parameters_action/sh_action
-      #   with:
-      #     default_region: ${{ secrets.AWS_DEFAULT_REGION }}
-      #     ssm_path_name: test_path
-      #     env_name: ${{ secrets.ENV_NAME_DEV }}
-      #     cd_parameters: |-
-      #       CD_TEST_VALUE1
-      #       CD_TEST_VALUE2
-      #     parameters: |-
-      #       TEST_VALUE1
-      #       TEST_VALUE2
+      - name: Run sh action
+        id: sh-action
+        uses: ./.github/actions/get_ssm_parameters_action/sh_action
+        with:
+          default_region: ${{ secrets.AWS_DEFAULT_REGION }}
+          ssm_path_name: test_path
+          env_name: ${{ secrets.ENV_NAME_DEV }}
+          cd_parameters: |-
+            CD_TEST_VALUE1
+            CD_TEST_VALUE2
+          parameters: |-
+            TEST_VALUE1
+            TEST_VALUE2
 
-      # - name: Get sh action Output
-      #   id: set-sh-output
-      #   env:
-      #     SSM_PARAMETERS: ${{ steps.sh-action.outputs.ssm_parameters }}
-      #   run: |
-      #     PARAMETERS_ARRAY=( \
-      #       CD_TEST_VALUE1 \
-      #       CD_TEST_VALUE2 \
-      #       TEST_VALUE1 \
-      #       TEST_VALUE2 \
-      #     )
-      #     for key in "${PARAMETERS_ARRAY[@]}"; \
-      #     do \
-      #         VAR_VALUE="$(jq --arg var_name $key -r '.[$var_name]' <(echo "${SSM_PARAMETERS}"))"; \
-      #         SET_OUTPUT_STRING="::set-output name=${key}::${VAR_VALUE}"; \
-      #         ADD_MASK_STRING="::add-mask::${VAR_VALUE}"; \
-      #         echo "${SET_OUTPUT_STRING}"; echo "${ADD_MASK_STRING}"; \
-      #     done
+      - name: Get sh action Output
+        id: set-sh-output
+        env:
+          SSM_PARAMETERS: ${{ steps.sh-action.outputs.ssm_parameters }}
+        run: |
+          PARAMETERS_ARRAY=( \
+            CD_TEST_VALUE1 \
+            CD_TEST_VALUE2 \
+            TEST_VALUE1 \
+            TEST_VALUE2 \
+          )
+          for key in "${PARAMETERS_ARRAY[@]}"; \
+          do \
+              VAR_VALUE="$(jq --arg var_name $key -r '.[$var_name]' <(echo "${SSM_PARAMETERS}"))"; \
+              SET_OUTPUT_STRING="::set-output name=${key}::${VAR_VALUE}"; \
+              ADD_MASK_STRING="::add-mask::${VAR_VALUE}"; \
+              echo "${SET_OUTPUT_STRING}"; echo "${ADD_MASK_STRING}"; \
+          done
 
-      # - name: ----- get time for sh end
-      #   run: echo "sh_end"; echo `date "+%Y-%m-%d %H:%M:%S"`
+      - name: ----- get time for sh end
+        run: echo "sh_end"; echo `date "+%Y-%m-%d %H:%M:%S"`
 
       - name: Check Output Mask
         env:
@@ -162,10 +162,10 @@ jobs:
           PY_OUTPUT_CD_TEST_VALUE2: ${{ steps.set-py-output.outputs.CD_TEST_VALUE2 }}
           PY_OUTPUT_TEST_VALUE1: ${{ steps.set-py-output.outputs.TEST_VALUE1 }}
           PY_OUTPUT_TEST_VALUE2: ${{ steps.set-py-output.outputs.TEST_VALUE2 }}
-          # SH_OUTPUT_CD_TEST_VALUE1: ${{ steps.set-sh-output.outputs.CD_TEST_VALUE1 }}
-          # SH_OUTPUT_CD_TEST_VALUE2: ${{ steps.set-sh-output.outputs.CD_TEST_VALUE2 }}
-          # SH_OUTPUT_TEST_VALUE1: ${{ steps.set-sh-output.outputs.TEST_VALUE1 }}
-          # SH_OUTPUT_TEST_VALUE2: ${{ steps.set-sh-output.outputs.TEST_VALUE2 }}
+          SH_OUTPUT_CD_TEST_VALUE1: ${{ steps.set-sh-output.outputs.CD_TEST_VALUE1 }}
+          SH_OUTPUT_CD_TEST_VALUE2: ${{ steps.set-sh-output.outputs.CD_TEST_VALUE2 }}
+          SH_OUTPUT_TEST_VALUE1: ${{ steps.set-sh-output.outputs.TEST_VALUE1 }}
+          SH_OUTPUT_TEST_VALUE2: ${{ steps.set-sh-output.outputs.TEST_VALUE2 }}
         run: |
           echo "${JS_OUTPUT_CD_TEST_VALUE1}"
           echo "${JS_OUTPUT_CD_TEST_VALUE2}"
@@ -175,7 +175,7 @@ jobs:
           echo "${PY_OUTPUT_CD_TEST_VALUE2}"
           echo "${PY_OUTPUT_TEST_VALUE1}"
           echo "${PY_OUTPUT_TEST_VALUE2}"
-        # echo "${SH_OUTPUT_CD_TEST_VALUE1}"
-        # echo "${SH_OUTPUT_CD_TEST_VALUE2}"
-        # echo "${SH_OUTPUT_TEST_VALUE1}"
-        # echo "${SH_OUTPUT_TEST_VALUE2}"
+          echo "${SH_OUTPUT_CD_TEST_VALUE1}"
+          echo "${SH_OUTPUT_CD_TEST_VALUE2}"
+          echo "${SH_OUTPUT_TEST_VALUE1}"
+          echo "${SH_OUTPUT_TEST_VALUE2}"
