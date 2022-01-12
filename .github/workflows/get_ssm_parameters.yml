@@ -68,7 +68,7 @@ jobs:
           do \
               VAR_VALUE="$(jq --arg var_name $key -r '.[$var_name]' <(echo "${SSM_PARAMETERS}"))"; \
               SET_OUTPUT_STRING="::set-output name=${key}::${VAR_VALUE}"; \
-              ADD_MASK_STRING="::add-mask::${VAR_VALUE}"; \
+              # ADD_MASK_STRING="::add-mask::${VAR_VALUE}"; \
               echo "${SET_OUTPUT_STRING}"; echo "${ADD_MASK_STRING}"; \
           done
 

@@ -6,13 +6,13 @@ ssm_path_name="$INPUT_SSM_PATH_NAME"
 env_name="$INPUT_ENV_NAME"
 
 cd_parameters="$INPUT_CD_PARAMETERS"
-cd_parameters=$(echo -n "${CD_PARAMETERS}" | sed --null-data -e 's/\n/,/g;')
+cd_parameters=$(echo -n "${cd_parameters}" | sed --null-data -e 's/\n/,/g;')
 
 IFS=, CD_PARAMS_ARRAY=(${cd_parameters})
 CD_ARRAY_COUNT=`expr "${#CD_PARAMS_ARRAY[*]}"`
 
 parameters="$INPUT_PARAMETERS"
-parameters=$(echo -n "${PARAMETERS}" | sed --null-data -e 's/\n/,/g;')
+parameters=$(echo -n "${parameters}" | sed --null-data -e 's/\n/,/g;')
 
 IFS=, PARAMS_ARRAY=(${parameters})
 ARRAY_COUNT=`expr "${#PARAMS_ARRAY[*]}"`
