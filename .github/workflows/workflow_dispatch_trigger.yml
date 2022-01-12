@@ -1,0 +1,14 @@
+name: workflow dispatch trigger
+
+on:
+  workflow_dispatch:
+
+jobs:
+  job1:
+    name: workflow dispatch trigger
+    runs-on: ubuntu-20.04
+    timeout-minutes: 5
+
+    steps:
+      - name: run echo
+        run: echo "workflow dispatch trigger"
