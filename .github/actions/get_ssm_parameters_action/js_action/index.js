@@ -69,7 +69,7 @@ async function handler() {
     )
 
     // outputに定義する値をマスク
-    // core.sektSecret(JSON.stringify(ssm_parameters))
+    core.sektSecret(JSON.stringify(ssm_parameters))
     // outputに取得した値を定義
     core.setOutput('ssm_parameters', JSON.stringify(ssm_parameters))
   } catch (error) {
