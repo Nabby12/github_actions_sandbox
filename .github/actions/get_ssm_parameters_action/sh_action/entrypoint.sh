@@ -1,17 +1,17 @@
 #!/bin/bash
 
 # input args
-default_region="$DEFAULT_REGION"
-ssm_path_name="$SSM_PATH_NAME"
-env_name="$ENV_NAME"
+default_region="$INPUT_DEFAULT_REGION"
+ssm_path_name="$INPUT_SSM_PATH_NAME"
+env_name="$INPUT_ENV_NAME"
 
-cd_parameters="$CD_PARAMETERS"
+cd_parameters="$INPUT_CD_PARAMETERS"
 cd_parameters=$(echo -n "${CD_PARAMETERS}" | sed --null-data -e 's/\n/,/g;')
 
 IFS=, CD_PARAMS_ARRAY=(${cd_parameters})
 CD_ARRAY_COUNT=`expr "${#CD_PARAMS_ARRAY[*]}"`
 
-parameters="$PARAMETERS"
+parameters="$INPUT_PARAMETERS"
 parameters=$(echo -n "${PARAMETERS}" | sed --null-data -e 's/\n/,/g;')
 
 IFS=, PARAMS_ARRAY=(${parameters})
@@ -60,7 +60,6 @@ done
 # output arg
 echo "::set-output name=ssm_parameters::$SSM_PARAMETERS"
 
-echo "${SSM_PARAMETERS}"
 # # input args
 # sample_input_args="$INPUT_SAMPLE_INPUT_ARGS"
 # sample_input_args=$(echo -n "${sample_input_args}" | sed --null-data -e 's/\n/,/g;')
