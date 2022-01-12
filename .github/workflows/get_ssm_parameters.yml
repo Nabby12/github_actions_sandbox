@@ -35,7 +35,7 @@ jobs:
         run: echo "js_start"; echo `date "+%Y-%m-%d %H:%M:%S"`
 
       - name: Run npm install for actions
-        working-directory: ./.github/actions/get-ssm-parameters/js_action
+        working-directory: ./.github/actions/get_ssm_parameters_action/js_action
         run: npm install
 
       - name: Run js action
