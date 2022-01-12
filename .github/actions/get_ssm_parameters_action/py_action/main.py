@@ -4,11 +4,11 @@ import os
 
 ssm = boto3.client('ssm')
 
-DEFAULT_REGION = os.environ['default_region']
-SSM_PATH_NAME = os.environ['ssm_path_name']
-ENV_NAME = os.environ['env_name']
-CD_PARAMETERS = os.environ['cd_parameters'].split('\n')
-PARAMETERS = os.environ['parameters'].split('\n')
+DEFAULT_REGION = os.environ['INPUT_DEFAULT_REGION']
+SSM_PATH_NAME = os.environ['INPUT_SSM_PATH_NAME']
+ENV_NAME = os.environ['INPUT_ENV_NAME']
+CD_PARAMETERS = os.environ['INPUT_CD_PARAMETERS'].split('\n')
+PARAMETERS = os.environ['INPUT_PARAMETERS'].split('\n')
 
 def main():
     ssm_cd_path = '/cd/'
