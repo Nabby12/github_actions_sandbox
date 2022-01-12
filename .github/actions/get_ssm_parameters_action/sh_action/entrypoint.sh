@@ -27,7 +27,7 @@ do
         END_STRING="}"
     fi
 
-    TARGET_KEY="${SSM_PATH}""${param}"
+    TARGET_KEY="/cd/""${param}"
     RESPONSE=$(aws ssm get-parameter --name "${TARGET_KEY}" --with-decryption)
     VALUE="$(jq -r '.Parameter.Value' <(echo "${RESPONSE}"))"
 
@@ -45,7 +45,7 @@ do
         END_STRING="}"
     fi
 
-    TARGET_KEY="${SSM_PATH}""${param}"
+    TARGET_KEY="${ssm_path_name}""${param}"
     RESPONSE=$(aws ssm get-parameter --name "${TARGET_KEY}" --with-decryption)
     VALUE="$(jq -r '.Parameter.Value' <(echo "${RESPONSE}"))"
 
