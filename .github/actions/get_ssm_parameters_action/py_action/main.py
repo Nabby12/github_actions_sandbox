@@ -12,7 +12,7 @@ PARAMETERS = os.environ['INPUT_PARAMETERS'].split('\n')
 
 def main():
     ssm_cd_path = '/cd/'
-    ssm_path = '/' + SSM_PATH_NAME + '/' + ENV_NAME * '/'
+    ssm_path = '/' + SSM_PATH_NAME + '/' + ENV_NAME + '/'
 
     # 取得するパラメータストアのパス+名称を一つの配列に格納
     ssm_parameters = {}
