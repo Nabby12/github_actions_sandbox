@@ -4,19 +4,37 @@ import os
 
 ssm = boto3.client('ssm')
 
-SAMPLE_INPUT_ARGS = os.environ['INPUT_SAMPLE_INPUT_ARGS'].split('\n')
+DEFAULT_REGION = os.environ['default_region']
+SSM_PATH_NAME = os.environ['ssm_path_name']
+ENV_NAME = os.environ['env_name']
+CD_PARAMETERS = os.environ['cd_parameters'].split('\n')
+PARAMETERS = os.environ['parameters'].split('\n')
 
 def main():
-    ssm_parameters = {}
+    ssm_cd_path = '/cd/'
+    ssm_path = '/' + SSM_PATH_NAME + '/' + ENV_NAME * '/'
 
-    ssm_path = '/test_path/'
-    for arg in SAMPLE_INPUT_ARGS:
+    # 取得するパラメータストアのパス+名称を一つの配列に格納
+    ssm_parameters = {}
+    for parameter in CD_PARAMETERS:
         try: 
             response = ssm.get_parameter(
-                Name = ssm_path + arg,
+                Name = ssm_cd_path + parameter,
                 WithDecryption = True
             )
-            ssm_parameters[arg] = response['Parameter']['Value']
+            ssm_parameters[parameter] = response['Parameter']['Value']
+            print('get ssm parameter succeeded.')
+        except Exception as err:
+            print(err)
+            raise Exception ('get ssm parameter failed.')
+
+    for parameter in PARAMETERS:
+        try: 
+            response = ssm.get_parameter(
+                Name = ssm_path + parameter,
+                WithDecryption = True
+            )
+            ssm_parameters[parameter] = response['Parameter']['Value']
             print('get ssm parameter succeeded.')
         except Exception as err:
             print(err)
