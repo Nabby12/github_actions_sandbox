@@ -26,9 +26,9 @@ do
     RESPONSE=$(aws ssm get-parameter --name "${TARGET_KEY}" --with-decryption --query "Parameter.Value")
 
     SSM_PARAMETERS="${SSM_PARAMETERS}"\""${param}"\"\:"${RESPONSE}""${END_STRING}"
-    let i++
-
     ssm_array=("${ssm_array[@]}" ${RESPONSE})
+
+    let i++
 done
 
 IFS=, PARAMS_ARRAY=(${parameters})
@@ -46,31 +46,15 @@ do
     RESPONSE=$(aws ssm get-parameter --name "${TARGET_KEY}" --with-decryption --query "Parameter.Value")
 
     SSM_PARAMETERS="${SSM_PARAMETERS}"\""${param}"\"\:"${RESPONSE}""${END_STRING}"
-    let i++
-
     ssm_array=("${ssm_array[@]}" ${RESPONSE})
+
+    let i++
 done
 
-# mask arg
-# echo "::add-mask::$SSM_PARAMETERS"
-
-i=0
 for data in ${ssm_array[@]}
 do
+    # mask arg
     echo "::add-mask::${data}"
-    let i++
 done
 
-# ssm_parameters_json=$(cat << EOS
-# ${SSM_PARAMETERS}
-# EOS
-# )
-# len=$(echo ${ssm_parameters_json}} | jq length)
-# for i in $( seq 0 $((${len} - 1)) )
-# do
-#   parameter=$(echo ${ssm_parameters_json} | jq .[$i])
-#   echo "::add-mask::${parameter}"
-# done
-
-# output arg
 echo "::set-output name=ssm_parameters::$SSM_PARAMETERS"
