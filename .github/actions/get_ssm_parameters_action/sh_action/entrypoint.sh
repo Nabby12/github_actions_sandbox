@@ -24,7 +24,7 @@ do
         END_STRING="}"
     fi
 
-    TARGET_KEY="/cd/${param}"
+    TARGET_KEY="/cd/""${param}"
     RESPONSE=$(aws ssm get-parameter --name "${TARGET_KEY}" --with-decryption --query "Parameter.Value")
 
     SSM_PARAMETERS="${SSM_PARAMETERS}"\""${param}"\"\:"${RESPONSE}""${END_STRING}"
