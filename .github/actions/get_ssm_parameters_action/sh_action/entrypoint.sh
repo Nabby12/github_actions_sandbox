@@ -20,8 +20,6 @@ do
     END_STRING=","
     if [ "${i}" -eq 1 ]; then
         SSM_PARAMETERS="{"
-    elif [ "${i}" -eq "${CD_ARRAY_COUNT}" ]; then
-        END_STRING="}"
     fi
 
     TARGET_KEY="/cd/${param}"
