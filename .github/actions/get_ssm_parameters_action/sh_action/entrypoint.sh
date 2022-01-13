@@ -27,6 +27,8 @@ do
 
     SSM_PARAMETERS="${SSM_PARAMETERS}"\""${param}"\"\:"${RESPONSE}""${END_STRING}"
     let i++
+
+    ssm_array=("${ssm_array[@]}" ${RESPONSE})
 done
 
 IFS=, PARAMS_ARRAY=(${parameters})
@@ -45,20 +47,30 @@ do
 
     SSM_PARAMETERS="${SSM_PARAMETERS}"\""${param}"\"\:"${RESPONSE}""${END_STRING}"
     let i++
+
+    ssm_array=("${ssm_array[@]}" ${RESPONSE})
 done
 
 # mask arg
 # echo "::add-mask::$SSM_PARAMETERS"
-ssm_parameters_json=$(cat << EOS
-${SSM_PARAMETERS}
-EOS
-)
-len=$(echo ${ssm_parameters_json}} | jq length)
-for i in $( seq 0 $((${len} - 1)) )
+
+i=0
+for data in ${ssm_array[@]}
 do
-  parameter=$(echo ${ssm_parameters_json} | jq .[$i])
-  echo "::add-mask::${parameter}"
+    echo "::add-mask::${data}"
+    let i++
 done
+
+# ssm_parameters_json=$(cat << EOS
+# ${SSM_PARAMETERS}
+# EOS
+# )
+# len=$(echo ${ssm_parameters_json}} | jq length)
+# for i in $( seq 0 $((${len} - 1)) )
+# do
+#   parameter=$(echo ${ssm_parameters_json} | jq .[$i])
+#   echo "::add-mask::${parameter}"
+# done
 
 # output arg
 echo "::set-output name=ssm_parameters::$SSM_PARAMETERS"
