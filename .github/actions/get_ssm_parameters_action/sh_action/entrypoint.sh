@@ -8,14 +8,11 @@ env_name="$INPUT_ENV_NAME"
 cd_parameters="$INPUT_CD_PARAMETERS"
 cd_parameters=$(echo -n "${cd_parameters}" | sed --null-data -e 's/\n/,/g;')
 
-IFS=, CD_PARAMS_ARRAY=(${cd_parameters})
-CD_ARRAY_COUNT=`expr "${#CD_PARAMS_ARRAY[*]}"`
-
 parameters="$INPUT_PARAMETERS"
 parameters=$(echo -n "${parameters}" | sed --null-data -e 's/\n/,/g;')
 
-IFS=, PARAMS_ARRAY=(${parameters})
-ARRAY_COUNT=`expr "${#PARAMS_ARRAY[*]}"`
+IFS=, CD_PARAMS_ARRAY=(${cd_parameters})
+CD_ARRAY_COUNT=`expr "${#CD_PARAMS_ARRAY[*]}"`
 
 i=1
 for param in "${CD_PARAMS_ARRAY[@]}"
@@ -30,10 +27,12 @@ do
     TARGET_KEY="/cd/${param}"
     RESPONSE=$(aws ssm get-parameter --name "${TARGET_KEY}" --with-decryption --query "Parameter.Value")
 
-    # SSM_PARAMETERS="${SSM_PARAMETERS}"\""${param}"\"\:"${RESPONSE}""${END_STRING}"
-    SSM_PARAMETERS="${SSM_PARAMETERS}\"${param}\"\:${RESPONSE}${END_STRING}"
+    SSM_PARAMETERS="${SSM_PARAMETERS}"\""${param}"\"\:"${RESPONSE}""${END_STRING}"
     let i++
 done
+
+IFS=, PARAMS_ARRAY=(${parameters})
+ARRAY_COUNT=`expr "${#PARAMS_ARRAY[*]}"`
 
 i=1
 for param in "${PARAMS_ARRAY[@]}"
@@ -48,13 +47,12 @@ do
     TARGET_KEY="/${ssm_path_name}/${env_name}/${param}"
     RESPONSE=$(aws ssm get-parameter --name "${TARGET_KEY}" --with-decryption --query "Parameter.Value")
 
-    # SSM_PARAMETERS="${SSM_PARAMETERS}"\""${param}"\"\:"${RESPONSE}""${END_STRING}"
-    SSM_PARAMETERS="${SSM_PARAMETERS}\"${param}\"\:${RESPONSE}${END_STRING}"
+    SSM_PARAMETERS="${SSM_PARAMETERS}"\""${param}"\"\:"${RESPONSE}""${END_STRING}"
     let i++
 done
 
 # mask arg
-echo "::add-mask::$SSM_PARAMETERS"
+# echo "::add-mask::$SSM_PARAMETERS"
 
 # output arg
 echo "::set-output name=ssm_parameters::$SSM_PARAMETERS"
