@@ -30,7 +30,8 @@ do
     TARGET_KEY="/cd/${param}"
     RESPONSE=$(aws ssm get-parameter --name "${TARGET_KEY}" --with-decryption --query "Parameter.Value")
 
-    SSM_PARAMETERS="${SSM_PARAMETERS}"\""${param}"\"\:"${RESPONSE}""${END_STRING}"
+    # SSM_PARAMETERS="${SSM_PARAMETERS}"\""${param}"\"\:"${RESPONSE}""${END_STRING}"
+    SSM_PARAMETERS="${SSM_PARAMETERS}\"${param}\"\:${RESPONSE}${END_STRING}"
     let i++
 done
 
@@ -47,7 +48,8 @@ do
     TARGET_KEY="/${ssm_path_name}/${env_name}/${param}"
     RESPONSE=$(aws ssm get-parameter --name "${TARGET_KEY}" --with-decryption --query "Parameter.Value")
 
-    SSM_PARAMETERS="${SSM_PARAMETERS}"\""${param}"\"\:"${RESPONSE}""${END_STRING}"
+    # SSM_PARAMETERS="${SSM_PARAMETERS}"\""${param}"\"\:"${RESPONSE}""${END_STRING}"
+    SSM_PARAMETERS="${SSM_PARAMETERS}\"${param}\"\:${RESPONSE}${END_STRING}"
     let i++
 done
 
