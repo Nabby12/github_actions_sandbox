@@ -69,8 +69,8 @@ async function handler() {
     )
 
     // outputに定義する値をマスク
-    ssm_parameters.map(parameter => {
-      core.setSecret(parameter)
+    Object.keys(ssm_parameters).map(key => {
+      core.setSecret(ssm_parameter[key])
     })
     // outputに取得した値を定義
     core.setOutput('ssm_parameters', JSON.stringify(ssm_parameters))
