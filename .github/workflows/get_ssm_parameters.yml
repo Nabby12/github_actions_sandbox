@@ -152,28 +152,28 @@ jobs:
 
       - name: Check Output Mask
         env:
-          JS_OUTPUT_CD_TEST_VALUE1: ${{ steps.set-js-output.outputs.CD_TEST_VALUE1 }}
-          JS_OUTPUT_CD_TEST_VALUE2: ${{ steps.set-js-output.outputs.CD_TEST_VALUE2 }}
-          JS_OUTPUT_TEST_VALUE1: ${{ steps.set-js-output.outputs.TEST_VALUE1 }}
-          JS_OUTPUT_TEST_VALUE2: ${{ steps.set-js-output.outputs.TEST_VALUE2 }}
-          # PY_OUTPUT_CD_TEST_VALUE1: ${{ steps.set-py-output.outputs.CD_TEST_VALUE1 }}
-          # PY_OUTPUT_CD_TEST_VALUE2: ${{ steps.set-py-output.outputs.CD_TEST_VALUE2 }}
-          # PY_OUTPUT_TEST_VALUE1: ${{ steps.set-py-output.outputs.TEST_VALUE1 }}
-          # PY_OUTPUT_TEST_VALUE2: ${{ steps.set-py-output.outputs.TEST_VALUE2 }}
+          # JS_OUTPUT_CD_TEST_VALUE1: ${{ steps.set-js-output.outputs.CD_TEST_VALUE1 }}
+          # JS_OUTPUT_CD_TEST_VALUE2: ${{ steps.set-js-output.outputs.CD_TEST_VALUE2 }}
+          # JS_OUTPUT_TEST_VALUE1: ${{ steps.set-js-output.outputs.TEST_VALUE1 }}
+          # JS_OUTPUT_TEST_VALUE2: ${{ steps.set-js-output.outputs.TEST_VALUE2 }}
+          PY_OUTPUT_CD_TEST_VALUE1: ${{ steps.set-py-output.outputs.CD_TEST_VALUE1 }}
+          PY_OUTPUT_CD_TEST_VALUE2: ${{ steps.set-py-output.outputs.CD_TEST_VALUE2 }}
+          PY_OUTPUT_TEST_VALUE1: ${{ steps.set-py-output.outputs.TEST_VALUE1 }}
+          PY_OUTPUT_TEST_VALUE2: ${{ steps.set-py-output.outputs.TEST_VALUE2 }}
           # SH_OUTPUT_CD_TEST_VALUE1: ${{ steps.set-sh-output.outputs.CD_TEST_VALUE1 }}
           # SH_OUTPUT_CD_TEST_VALUE2: ${{ steps.set-sh-output.outputs.CD_TEST_VALUE2 }}
           # SH_OUTPUT_TEST_VALUE1: ${{ steps.set-sh-output.outputs.TEST_VALUE1 }}
           # SH_OUTPUT_TEST_VALUE2: ${{ steps.set-sh-output.outputs.TEST_VALUE2 }}
         run: |
-          echo "${JS_OUTPUT_CD_TEST_VALUE1}"
-          echo "${JS_OUTPUT_CD_TEST_VALUE2}"
-          echo "${JS_OUTPUT_TEST_VALUE1}"
-          echo "${JS_OUTPUT_TEST_VALUE2}"
-        # echo "${PY_OUTPUT_CD_TEST_VALUE1}"
-        # echo "${PY_OUTPUT_CD_TEST_VALUE2}"
-        # echo "${PY_OUTPUT_TEST_VALUE1}"
-        # echo "${PY_OUTPUT_TEST_VALUE2}"
+          echo "${PY_OUTPUT_CD_TEST_VALUE1}"
+          echo "${PY_OUTPUT_CD_TEST_VALUE2}"
+          echo "${PY_OUTPUT_TEST_VALUE1}"
+          echo "${PY_OUTPUT_TEST_VALUE2}"
         # echo "${SH_OUTPUT_CD_TEST_VALUE1}"
         # echo "${SH_OUTPUT_CD_TEST_VALUE2}"
         # echo "${SH_OUTPUT_TEST_VALUE1}"
         # echo "${SH_OUTPUT_TEST_VALUE2}"
+        # echo "${JS_OUTPUT_CD_TEST_VALUE1}"
+        # echo "${JS_OUTPUT_CD_TEST_VALUE2}"
+        # echo "${JS_OUTPUT_TEST_VALUE1}"
+        # echo "${JS_OUTPUT_TEST_VALUE2}"
