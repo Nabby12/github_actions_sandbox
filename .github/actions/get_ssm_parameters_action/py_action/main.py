@@ -40,7 +40,11 @@ def main():
             print(err)
             raise Exception ('get ssm parameter failed.')
 
-    # print("::add-mask::" + json.dumps(ssm_parameters))
+    # outputに定義する値をマスク
+    # for key in ssm_parameters:
+    #     print("::add-mask::" + ssm_parameters[key])
+
+    # outputに取得した値を定義
     print("::set-output name=ssm_parameters::" + json.dumps(ssm_parameters))
 
 if __name__ == '__main__':

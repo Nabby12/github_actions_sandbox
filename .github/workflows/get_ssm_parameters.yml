@@ -31,16 +31,54 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ASSUME_ROLE_ARN }}
           role-duration-seconds: 900
 
-      - name: get time for js start -----
-        run: echo "js_start"; echo `date "+%Y-%m-%d %H:%M:%S"`
+      # - name: get time for js start -----
+      #   run: echo "js_start"; echo `date "+%Y-%m-%d %H:%M:%S"`
 
-      - name: Run npm install for actions
-        working-directory: ./.github/actions/get_ssm_parameters_action/js_action
-        run: npm install
+      # - name: Run npm install for actions
+      #   working-directory: ./.github/actions/get_ssm_parameters_action/js_action
+      #   run: npm install
 
-      - name: Run js action
-        id: js-action
-        uses: ./.github/actions/get_ssm_parameters_action/js_action
+      # - name: Run js action
+      #   id: js-action
+      #   uses: ./.github/actions/get_ssm_parameters_action/js_action
+      #   with:
+      #     default_region: ${{ secrets.AWS_DEFAULT_REGION }}
+      #     ssm_path_name: test_path
+      #     env_name: ${{ secrets.ENV_NAME_DEV }}
+      #     cd_parameters: |-
+      #       CD_TEST_VALUE1
+      #       CD_TEST_VALUE2
+      #     parameters: |-
+      #       TEST_VALUE1
+      #       TEST_VALUE2
+
+      # - name: Get js action Output
+      #   id: set-js-output
+      #   env:
+      #     SSM_PARAMETERS: ${{ steps.js-action.outputs.ssm_parameters }}
+      #   run: |
+      #     PARAMETERS_ARRAY=( \
+      #       CD_TEST_VALUE1 \
+      #       CD_TEST_VALUE2 \
+      #       TEST_VALUE1 \
+      #       TEST_VALUE2 \
+      #     )
+      #     for key in "${PARAMETERS_ARRAY[@]}"; \
+      #     do \
+      #         VAR_VALUE="$(jq --arg var_name $key -r '.[$var_name]' <(echo "${SSM_PARAMETERS}"))"; \
+      #         SET_OUTPUT_STRING="::set-output name=${key}::${VAR_VALUE}"; \
+      #         echo "${SET_OUTPUT_STRING}"; \
+      #     done
+
+      # - name: ----- get time for js end
+      #   run: echo "js_end"; echo `date "+%Y-%m-%d %H:%M:%S"`
+
+      - name: get time for py start -----
+        run: echo "py_start"; echo `date "+%Y-%m-%d %H:%M:%S"`
+
+      - name: Run py action
+        id: py-action
+        uses: ./.github/actions/get_ssm_parameters_action/py_action
         with:
           default_region: ${{ secrets.AWS_DEFAULT_REGION }}
           ssm_path_name: test_path
@@ -52,10 +90,10 @@ jobs:
             TEST_VALUE1
             TEST_VALUE2
 
-      - name: Get js action Output
-        id: set-js-output
+      - name: Get py action Output
+        id: set-py-output
         env:
-          SSM_PARAMETERS: ${{ steps.js-action.outputs.ssm_parameters }}
+          SSM_PARAMETERS: ${{ steps.py-action.outputs.ssm_parameters }}
         run: |
           PARAMETERS_ARRAY=( \
             CD_TEST_VALUE1 \
@@ -69,54 +107,9 @@ jobs:
               SET_OUTPUT_STRING="::set-output name=${key}::${VAR_VALUE}"; \
               echo "${SET_OUTPUT_STRING}"; \
           done
-        # do \
-        #     VAR_VALUE="$(jq --arg var_name $key -r '.[$var_name]' <(echo "${SSM_PARAMETERS}"))"; \
-        #     SET_OUTPUT_STRING="::set-output name=${key}::${VAR_VALUE}"; \
-        #     ADD_MASK_STRING="::add-mask::${VAR_VALUE}"; \
-        #     echo "${SET_OUTPUT_STRING}"; echo "${ADD_MASK_STRING}"; \
-        # done
 
-      - name: ----- get time for js end
-        run: echo "js_end"; echo `date "+%Y-%m-%d %H:%M:%S"`
-
-      # - name: get time for py start -----
-      #   run: echo "py_start"; echo `date "+%Y-%m-%d %H:%M:%S"`
-
-      # - name: Run py action
-      #   id: py-action
-      #   uses: ./.github/actions/get_ssm_parameters_action/py_action
-      #   with:
-      #     default_region: ${{ secrets.AWS_DEFAULT_REGION }}
-      #     ssm_path_name: test_path
-      #     env_name: ${{ secrets.ENV_NAME_DEV }}
-      #     cd_parameters: |-
-      #       CD_TEST_VALUE1
-      #       CD_TEST_VALUE2
-      #     parameters: |-
-      #       TEST_VALUE1
-      #       TEST_VALUE2
-
-      # - name: Get py action Output
-      #   id: set-py-output
-      #   env:
-      #     SSM_PARAMETERS: ${{ steps.py-action.outputs.ssm_parameters }}
-      #   run: |
-      #     PARAMETERS_ARRAY=( \
-      #       CD_TEST_VALUE1 \
-      #       CD_TEST_VALUE2 \
-      #       TEST_VALUE1 \
-      #       TEST_VALUE2 \
-      #     )
-      #     for key in "${PARAMETERS_ARRAY[@]}"; \
-      #     do \
-      #         VAR_VALUE="$(jq --arg var_name $key -r '.[$var_name]' <(echo "${SSM_PARAMETERS}"))"; \
-      #         SET_OUTPUT_STRING="::set-output name=${key}::${VAR_VALUE}"; \
-      #         ADD_MASK_STRING="::add-mask::${VAR_VALUE}"; \
-      #         echo "${SET_OUTPUT_STRING}"; echo "${ADD_MASK_STRING}"; \
-      #     done
-
-      # - name: ----- get time for py end
-      #   run: echo "py_end"; echo `date "+%Y-%m-%d %H:%M:%S"`
+      - name: ----- get time for py end
+        run: echo "py_end"; echo `date "+%Y-%m-%d %H:%M:%S"`
 
       # - name: get time for sh start -----
       #   run: echo "sh_start"; echo `date "+%Y-%m-%d %H:%M:%S"`
