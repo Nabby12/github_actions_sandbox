@@ -2,6 +2,12 @@ name: js action
 description: 'this is a js action'
 
 inputs:
+  ssm_path_name:
+    description: 'ssm_path_name'
+    required: true
+  env:
+    description: 'env'
+    required: true
   sample_input_args:
     description: 'sample_input_args'
     required: true
