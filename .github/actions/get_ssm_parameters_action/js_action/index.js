@@ -38,24 +38,22 @@ async function handler() {
     let ssm_parameters = {}
     await Promise.all (
       ssm_params.map(async parameter => {
-        if (parameter.length > 0) {
-          const params = {
-            Name: parameter.path + parameter.key,
-            WithDecryption: true
-          }; console.log("-> " + params.Name)
-          const response = await ssm.getParameter(params)
-          .promise()
-          .then(data => {
-            ssm_parameters[parameter.key] = data.Parameter.Value
-            return 'get ssm parameter succeeded.'
-          })
-          .catch(err => {
-            console.log(err)
-            throw new Error('get ssm parameter failed.')
-          })
+        const params = {
+          Name: parameter.path + parameter.key,
+          WithDecryption: true
+        }; console.log("-> " + params.Name)
+        const response = await ssm.getParameter(params)
+        .promise()
+        .then(data => {
+          ssm_parameters[parameter.key] = data.Parameter.Value
+          return 'get ssm parameter succeeded.'
+        })
+        .catch(err => {
+          console.log(err)
+          throw new Error('get ssm parameter failed.')
+        })
 
-          console.log(response)
-        }
+        console.log(response)
       })
     )
     // outputに定義する値をマスク
