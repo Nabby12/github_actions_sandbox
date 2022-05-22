@@ -6,7 +6,7 @@ const DEFAULT_REGION = 'ap-northeast-1'
 const SSM_VERSION = '2014-11-06'
 
 const SSM_PATH_NAME = core.getInput('ssm_path_name')
-const ENV = core.getInput('ENV')
+const ENV = core.getInput('env')
 const SAMPLE_INPUT_ARGS = core.getInput('sample_input_args').split('\n')
 
 const AWS = require('aws-sdk')
