@@ -43,8 +43,8 @@ jobs:
         id: js-action
         uses: ./.github/actions/get_ssm_parameters_action/js_action
         with:
-          ssm_path_name: 'test_path'
-          env: 'dev'
+          ssm_path_name: test_path
+          env: dev
           sample_input_args: |-
             TEST_VALUE1
             TEST_VALUE2
