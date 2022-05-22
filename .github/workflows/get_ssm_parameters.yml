@@ -54,12 +54,12 @@ jobs:
         env:
           SSM_PARAMETERS: "'${{ steps.js-action.outputs.ssm_parameters }}'"
         run: |
-          PARAMETERS=$(echo "${SSM_PARAMETERS}" | jq -r '. | to_entries[].key')
+          PARAMETERS=$(echo "$SSM_PARAMETERS" | jq -r '. | to_entries[].key')
           for key in "${!PARAMETERS[@]}"; \
           do \
-              VAR_VALUE=${PARAMETERS[${key}]} \
-              SET_OUTPUT_STRING="::set-output name=${key}::${VAR_VALUE}" \
-              echo ${SET_OUTPUT_STRING}
+              VAR_VALUE=${PARAMETERS["$key"]} \
+              SET_OUTPUT_STRING='::set-output name="$key"::"$VAR_VALUE"' \
+              echo "$SET_OUTPUT_STRING"
           done
         #     ADD_MASK_STRING="::add-mask::${VAR_VALUE}" \
         #     echo "${SET_OUTPUT_STRING}"; echo "${ADD_MASK_STRING}" \
