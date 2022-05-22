@@ -58,9 +58,10 @@ jobs:
               VAR_VALUE=${PARAMETERS[$key]} \
               SET_OUTPUT_STRING="::set-output name=${key}::${VAR_VALUE}" \
               echo ${SET_OUTPUT_STRING}
-              ADD_MASK_STRING="::add-mask::${VAR_VALUE}" \
-              echo "${SET_OUTPUT_STRING}"; echo "${ADD_MASK_STRING}" \
           done
+        #     ADD_MASK_STRING="::add-mask::${VAR_VALUE}" \
+        #     echo "${SET_OUTPUT_STRING}"; echo "${ADD_MASK_STRING}" \
+        # done
 
       - name: ----- get time for js end
         run: echo "js_end"; echo `date "+%Y-%m-%d %H:%M:%S"`
