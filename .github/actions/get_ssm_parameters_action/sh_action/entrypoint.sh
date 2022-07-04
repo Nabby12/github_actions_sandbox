@@ -13,6 +13,7 @@ parameters=$(echo -n "${parameters}" | sed --null-data -e 's/\n/,/g;')
 
 IFS=, CD_PARAMS_ARRAY=(${cd_parameters})
 if [ -n "$CD_PARAMS_ARRAY" ]; then
+    echo -----------------------
     CD_ARRAY_COUNT=`expr "${#CD_PARAMS_ARRAY[*]}"`
     i=1
     for param in "${CD_PARAMS_ARRAY[@]}"
@@ -34,6 +35,7 @@ fi
 
 IFS=, PARAMS_ARRAY=(${parameters})
 if [ -n "$PARAMS_ARRAY" ]; then
+    echo -----------------------
     ARRAY_COUNT=`expr "${#PARAMS_ARRAY[*]}"`
     i=1
     for param in "${PARAMS_ARRAY[@]}"
