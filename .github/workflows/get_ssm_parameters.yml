@@ -84,8 +84,8 @@ jobs:
           ssm_path_name: test_path
           env: ${{ secrets.ENV_NAME_DEV }}
           cd_parameters: |-
-            CD_TEST_VALUE1
-            CD_TEST_VALUE2
+            # CD_TEST_VALUE1
+            # CD_TEST_VALUE2
           parameters: |-
             TEST_VALUE1
             TEST_VALUE2
