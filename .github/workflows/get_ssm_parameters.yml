@@ -124,9 +124,9 @@ jobs:
           cd_parameters: |-
             CD_TEST_VALUE1
             CD_TEST_VALUE2
-          # parameters: |-
-          #   TEST_VALUE1
-          #   TEST_VALUE2
+          parameters: |-
+            TEST_VALUE1
+            TEST_VALUE2
 
       - name: Get sh action Output
         id: set-sh-output
@@ -136,6 +136,8 @@ jobs:
           PARAMETERS_ARRAY=( \
             CD_TEST_VALUE1 \
             CD_TEST_VALUE2 \
+            TEST_VALUE1 \
+            TEST_VALUE2 \
           )
           for key in "${PARAMETERS_ARRAY[@]}"; \
           do \
