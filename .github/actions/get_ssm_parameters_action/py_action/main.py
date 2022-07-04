@@ -6,13 +6,13 @@ ssm = boto3.client('ssm')
 
 DEFAULT_REGION = os.environ['INPUT_DEFAULT_REGION']
 SSM_PATH_NAME = os.environ['INPUT_SSM_PATH_NAME']
-ENV_NAME = os.environ['INPUT_ENV_NAME']
+ENV = os.environ['INPUT_ENV']
 CD_PARAMETERS = os.environ['INPUT_CD_PARAMETERS'].split('\n')
 PARAMETERS = os.environ['INPUT_PARAMETERS'].split('\n')
 
 def main():
     ssm_cd_path = '/cd/'
-    ssm_path = '/' + SSM_PATH_NAME + '/' + ENV_NAME + '/'
+    ssm_path = '/' + SSM_PATH_NAME + '/' + ENV + '/'
 
     # 取得するパラメータストアのパス+名称を一つの配列に格納
     ssm_parameters = {}

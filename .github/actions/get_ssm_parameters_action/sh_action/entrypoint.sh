@@ -3,7 +3,7 @@
 # input args
 default_region="$INPUT_DEFAULT_REGION"
 ssm_path_name="$INPUT_SSM_PATH_NAME"
-env_name="$INPUT_ENV_NAME"
+env="$INPUT_ENV"
 
 cd_parameters="$INPUT_CD_PARAMETERS"
 cd_parameters=$(echo -n "${cd_parameters}" | sed --null-data -e 's/\n/,/g;')
@@ -42,7 +42,7 @@ do
         END_STRING="}"
     fi
 
-    TARGET_KEY="/${ssm_path_name}/${env_name}/${param}"
+    TARGET_KEY="/${ssm_path_name}/${env}/${param}"
     RESPONSE=$(aws ssm get-parameter --name "${TARGET_KEY}" --with-decryption --query "Parameter.Value")
 
     SSM_PARAMETERS="${SSM_PARAMETERS}"\""${param}"\"\:"${RESPONSE}""${END_STRING}"
