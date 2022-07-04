@@ -9,18 +9,11 @@ cd_parameters="$INPUT_CD_PARAMETERS"
 cd_parameters=$(echo -n "${cd_parameters}" | sed --null-data -e 's/\n/,/g;')
 
 parameters="$INPUT_PARAMETERS"
-echo 'parameters'
-echo parameters
-echo 'parameters'
 parameters=$(echo -n "${parameters}" | sed --null-data -e 's/\n/,/g;')
 
 IFS=, CD_PARAMS_ARRAY=(${cd_parameters})
 CD_ARRAY_COUNT=`expr "${#CD_PARAMS_ARRAY[*]}"`
-
-echo 'parameters'
-echo parameters
-echo 'parameters'
-
+echo ${CD_PARAMS_ARRAY}
 i=1
 for param in "${CD_PARAMS_ARRAY[@]}"
 do
