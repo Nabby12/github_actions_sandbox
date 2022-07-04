@@ -11,9 +11,12 @@ cd_parameters=$(echo -n "${cd_parameters}" | sed --null-data -e 's/\n/,/g;')
 parameters="$INPUT_PARAMETERS"
 parameters=$(echo -n "${parameters}" | sed --null-data -e 's/\n/,/g;')
 
+
 SSM_PARAMETERS="{"
 
 IFS=, CD_PARAMS_ARRAY=(${cd_parameters})
+IFS=, PARAMS_ARRAY=(${parameters})
+
 if [ -n "$CD_PARAMS_ARRAY" ]; then
     CD_ARRAY_COUNT=`expr "${#CD_PARAMS_ARRAY[*]}"`
     i=1
@@ -21,7 +24,9 @@ if [ -n "$CD_PARAMS_ARRAY" ]; then
     do
         END_STRING=","
         if [ "${i}" -eq "${CD_ARRAY_COUNT}" ]; then
-            END_STRING=""
+            if [ -z "$PARAMS_ARRAY" ]; then
+                END_STRING=""
+            fi
         fi
 
         TARGET_KEY="/cd/${param}"
@@ -34,7 +39,6 @@ if [ -n "$CD_PARAMS_ARRAY" ]; then
     done
 fi
 
-IFS=, PARAMS_ARRAY=(${parameters})
 if [ -n "$PARAMS_ARRAY" ]; then
     ARRAY_COUNT=`expr "${#PARAMS_ARRAY[*]}"`
     i=1
