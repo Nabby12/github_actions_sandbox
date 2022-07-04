@@ -121,9 +121,9 @@ jobs:
           default_region: ${{ secrets.AWS_DEFAULT_REGION }}
           ssm_path_name: test_path
           env: ${{ secrets.ENV_NAME_DEV }}
-          cd_parameters: |-
-            CD_TEST_VALUE1
-            CD_TEST_VALUE2
+          # cd_parameters: |-
+          #   CD_TEST_VALUE1
+          #   CD_TEST_VALUE2
           parameters: |-
             TEST_VALUE1
             TEST_VALUE2
@@ -134,8 +134,6 @@ jobs:
           SSM_PARAMETERS: ${{ steps.sh-action.outputs.ssm_parameters }}
         run: |
           PARAMETERS_ARRAY=( \
-            CD_TEST_VALUE1 \
-            CD_TEST_VALUE2 \
             TEST_VALUE1 \
             TEST_VALUE2 \
           )
