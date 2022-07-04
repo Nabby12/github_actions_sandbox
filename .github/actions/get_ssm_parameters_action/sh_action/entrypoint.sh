@@ -12,44 +12,46 @@ parameters="$INPUT_PARAMETERS"
 parameters=$(echo -n "${parameters}" | sed --null-data -e 's/\n/,/g;')
 
 IFS=, CD_PARAMS_ARRAY=(${cd_parameters})
-CD_ARRAY_COUNT=`expr "${#CD_PARAMS_ARRAY[*]}"`
-echo ${CD_PARAMS_ARRAY}
-i=1
-for param in "${CD_PARAMS_ARRAY[@]}"
-do
-    END_STRING=","
-    if [ "${i}" -eq 1 ]; then
-        SSM_PARAMETERS="{"
-    fi
+if [ -n "$CD_PARAMS_ARRAY" ]; then
+    CD_ARRAY_COUNT=`expr "${#CD_PARAMS_ARRAY[*]}"`
+    i=1
+    for param in "${CD_PARAMS_ARRAY[@]}"
+    do
+        END_STRING=","
+        if [ "${i}" -eq 1 ]; then
+            SSM_PARAMETERS="{"
+        fi
 
-    TARGET_KEY="/cd/${param}"
-    RESPONSE=$(aws ssm get-parameter --name "${TARGET_KEY}" --with-decryption --query "Parameter.Value")
+        TARGET_KEY="/cd/${param}"
+        RESPONSE=$(aws ssm get-parameter --name "${TARGET_KEY}" --with-decryption --query "Parameter.Value")
 
-    SSM_PARAMETERS="${SSM_PARAMETERS}"\""${param}"\"\:"${RESPONSE}""${END_STRING}"
-    ssm_array=("${ssm_array[@]}" ${RESPONSE})
+        SSM_PARAMETERS="${SSM_PARAMETERS}"\""${param}"\"\:"${RESPONSE}""${END_STRING}"
+        ssm_array=("${ssm_array[@]}" ${RESPONSE})
 
-    let i++
-done
+        let i++
+    done
+fi
 
 IFS=, PARAMS_ARRAY=(${parameters})
-ARRAY_COUNT=`expr "${#PARAMS_ARRAY[*]}"`
+if [ -n "$PARAMS_ARRAY" ]; then
+    ARRAY_COUNT=`expr "${#PARAMS_ARRAY[*]}"`
+    i=1
+    for param in "${PARAMS_ARRAY[@]}"
+    do
+        END_STRING=","
+        if [ "${i}" -eq "${ARRAY_COUNT}" ]; then
+            END_STRING="}"
+        fi
 
-i=1
-for param in "${PARAMS_ARRAY[@]}"
-do
-    END_STRING=","
-    if [ "${i}" -eq "${ARRAY_COUNT}" ]; then
-        END_STRING="}"
-    fi
+        TARGET_KEY="/${ssm_path_name}/${env}/${param}"
+        RESPONSE=$(aws ssm get-parameter --name "${TARGET_KEY}" --with-decryption --query "Parameter.Value")
 
-    TARGET_KEY="/${ssm_path_name}/${env}/${param}"
-    RESPONSE=$(aws ssm get-parameter --name "${TARGET_KEY}" --with-decryption --query "Parameter.Value")
+        SSM_PARAMETERS="${SSM_PARAMETERS}"\""${param}"\"\:"${RESPONSE}""${END_STRING}"
+        ssm_array=("${ssm_array[@]}" ${RESPONSE})
 
-    SSM_PARAMETERS="${SSM_PARAMETERS}"\""${param}"\"\:"${RESPONSE}""${END_STRING}"
-    ssm_array=("${ssm_array[@]}" ${RESPONSE})
-
-    let i++
-done
+        let i++
+    done
+fi
 
 for data in ${ssm_array[@]}
 do
