@@ -17,6 +17,8 @@ def main():
 
     # 取得するパラメータストアのパス+名称を一つの配列に格納
     ssm_parameters = {}
+    print("CD_PARAMETERS")
+    print(CD_PARAMETERS)
     if CD_PARAMETERS != []:
         for parameter in CD_PARAMETERS:
             try:
