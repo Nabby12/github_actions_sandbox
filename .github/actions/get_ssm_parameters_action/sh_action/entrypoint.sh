@@ -14,6 +14,10 @@ parameters=$(echo -n "${parameters}" | sed --null-data -e 's/\n/,/g;')
 IFS=, CD_PARAMS_ARRAY=(${cd_parameters})
 CD_ARRAY_COUNT=`expr "${#CD_PARAMS_ARRAY[*]}"`
 
+echo 'parameters'
+echo parameters
+echo 'parameters'
+
 i=1
 for param in "${CD_PARAMS_ARRAY[@]}"
 do
