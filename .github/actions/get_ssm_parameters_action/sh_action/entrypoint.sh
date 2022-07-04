@@ -11,6 +11,8 @@ cd_parameters=$(echo -n "${cd_parameters}" | sed --null-data -e 's/\n/,/g;')
 parameters="$INPUT_PARAMETERS"
 parameters=$(echo -n "${parameters}" | sed --null-data -e 's/\n/,/g;')
 
+SSM_PARAMETERS="{"
+
 IFS=, CD_PARAMS_ARRAY=(${cd_parameters})
 if [ -n "$CD_PARAMS_ARRAY" ]; then
     echo -----------------------
@@ -19,9 +21,9 @@ if [ -n "$CD_PARAMS_ARRAY" ]; then
     for param in "${CD_PARAMS_ARRAY[@]}"
     do
         END_STRING=","
-        if [ "${i}" -eq 1 ]; then
-            SSM_PARAMETERS="{"
-        fi
+        # if [ "${i}" -eq 1 ]; then
+        #     SSM_PARAMETERS="{"
+        # fi
 
         TARGET_KEY="/cd/${param}"
         RESPONSE=$(aws ssm get-parameter --name "${TARGET_KEY}" --with-decryption --query "Parameter.Value")
@@ -42,7 +44,7 @@ if [ -n "$PARAMS_ARRAY" ]; then
     do
         END_STRING=","
         if [ "${i}" -eq "${ARRAY_COUNT}" ]; then
-            END_STRING="}"
+            END_STRING=""
         fi
 
         TARGET_KEY="/${ssm_path_name}/${env}/${param}"
@@ -54,6 +56,8 @@ if [ -n "$PARAMS_ARRAY" ]; then
         let i++
     done
 fi
+
+SSM_PARAMETERS="${SSM_PARAMETERS}}"
 
 for data in ${ssm_array[@]}
 do
