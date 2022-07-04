@@ -20,6 +20,9 @@ if [ -n "$CD_PARAMS_ARRAY" ]; then
     for param in "${CD_PARAMS_ARRAY[@]}"
     do
         END_STRING=","
+        if [ "${i}" -eq "${CD_ARRAY_COUNT}" ]; then
+            END_STRING=""
+        fi
 
         TARGET_KEY="/cd/${param}"
         RESPONSE=$(aws ssm get-parameter --name "${TARGET_KEY}" --with-decryption --query "Parameter.Value")
