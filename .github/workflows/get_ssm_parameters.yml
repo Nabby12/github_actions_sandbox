@@ -44,7 +44,7 @@ jobs:
         with:
           default_region: ${{ secrets.AWS_DEFAULT_REGION }}
           ssm_path_name: test_path
-          env_name: ${{ secrets.ENV_NAME_DEV }}
+          env: ${{ secrets.ENV_NAME_DEV }}
           cd_parameters: |-
             CD_TEST_VALUE1
             CD_TEST_VALUE2
@@ -82,7 +82,7 @@ jobs:
         with:
           default_region: ${{ secrets.AWS_DEFAULT_REGION }}
           ssm_path_name: test_path
-          env_name: ${{ secrets.ENV_NAME_DEV }}
+          env: ${{ secrets.ENV_NAME_DEV }}
           cd_parameters: |-
             CD_TEST_VALUE1
             CD_TEST_VALUE2
@@ -120,7 +120,7 @@ jobs:
         with:
           default_region: ${{ secrets.AWS_DEFAULT_REGION }}
           ssm_path_name: test_path
-          env_name: ${{ secrets.ENV_NAME_DEV }}
+          env: ${{ secrets.ENV_NAME_DEV }}
           cd_parameters: |-
             CD_TEST_VALUE1
             CD_TEST_VALUE2

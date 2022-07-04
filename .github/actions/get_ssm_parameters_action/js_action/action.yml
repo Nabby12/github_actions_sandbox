@@ -8,8 +8,8 @@ inputs:
   ssm_path_name:
     description: 'this SSM path name'
     required: true
-  env_name:
-    description: 'this env name'
+  env:
+    description: 'this env'
     required: true
   cd_parameters:
     description: 'target SSM Parameters for cd'

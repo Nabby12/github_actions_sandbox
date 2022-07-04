@@ -4,7 +4,7 @@ const core = require('@actions/core')
 
 const DEFAULT_REGION = core.getInput('default_region')
 const SSM_PATH_NAME = core.getInput('ssm_path_name')
-const ENV_NAME = core.getInput('env_name')
+const ENV = core.getInput('env')
 const CD_PARAMETERS = core.getInput('cd_parameters').split('\n')
 const PARAMETERS = core.getInput('parameters').split('\n')
 
@@ -26,23 +26,30 @@ if (require.main === module) {
 async function handler() {
   try {
     const ssm_cd_path = '/cd/'
-    const ssm_path = `/${SSM_PATH_NAME}/${ENV_NAME}/`
+    const ssm_path = `/${SSM_PATH_NAME}/${ENV}/`
 
     // 取得するパラメータストアのパス+名称を一つの配列に格納
     let ssm_params = []
+
     CD_PARAMETERS.map(parameter => {
-      const param = {
-        path: ssm_cd_path, 
-        key: parameter
+      if (parameter.length > 0) {
+        const param = {
+          path: ssm_cd_path,
+          key: parameter
+        }
+        ssm_params.push(param)
       }
-      ssm_params.push(param)
     })
+
+
     PARAMETERS.map(parameter => {
-      const param = {
-        path: ssm_path, 
-        key: parameter
+      if (parameter.length > 0) {
+        const param = {
+          path: ssm_path,
+          key: parameter
+        }
+        ssm_params.push(param)
       }
-      ssm_params.push(param)
     })
 
     // 対象のパラメータストアの値をすべて取得
