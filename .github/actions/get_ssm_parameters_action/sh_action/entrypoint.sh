@@ -15,15 +15,11 @@ SSM_PARAMETERS="{"
 
 IFS=, CD_PARAMS_ARRAY=(${cd_parameters})
 if [ -n "$CD_PARAMS_ARRAY" ]; then
-    echo -----------------------
     CD_ARRAY_COUNT=`expr "${#CD_PARAMS_ARRAY[*]}"`
     i=1
     for param in "${CD_PARAMS_ARRAY[@]}"
     do
         END_STRING=","
-        # if [ "${i}" -eq 1 ]; then
-        #     SSM_PARAMETERS="{"
-        # fi
 
         TARGET_KEY="/cd/${param}"
         RESPONSE=$(aws ssm get-parameter --name "${TARGET_KEY}" --with-decryption --query "Parameter.Value")
@@ -37,7 +33,6 @@ fi
 
 IFS=, PARAMS_ARRAY=(${parameters})
 if [ -n "$PARAMS_ARRAY" ]; then
-    echo -----------------------
     ARRAY_COUNT=`expr "${#PARAMS_ARRAY[*]}"`
     i=1
     for param in "${PARAMS_ARRAY[@]}"
