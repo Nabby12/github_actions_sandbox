@@ -24,7 +24,7 @@ jobs:
             input=$(export TZ="America/New_York" && date +'%Y%m%d')
           fi
 
-          echo $imput
+          echo $input
 
           if [[ ! $input =~ ^[0-9]{8}$ ]]; then
             echo "Error: date is not [YYYYmmdd HHMMSS] format"
