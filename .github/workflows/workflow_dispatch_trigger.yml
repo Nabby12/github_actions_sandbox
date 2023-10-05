@@ -20,8 +20,7 @@ jobs:
         run: |
           # input="${{ github.event.inputs.date }}"
           input="1234"
-          pattern="[0-9]{4}"
-          if ! [[ "$input" =~ "$pattern" ]]; then
+          if ! [[ "$input" =~ ^[0-9]{4} ]]; then
             echo "Error: date is not [YYYYmmdd HHMMSS] format"
             exit 1
           fi
