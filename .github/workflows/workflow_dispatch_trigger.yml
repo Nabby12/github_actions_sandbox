@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       date:
-        description: 'YYYYmmdd (ex. 19910101)'
+        description: 'YYYYmmdd (ex. 19910101, "default" => 実行当日)'
         required: true
-        default: ${{ export TZ="Asia/Tokyo" && date +'%Y%m%d' }}
+        default: default
 
 jobs:
   job1:
@@ -18,10 +18,16 @@ jobs:
       - name: validate input
         run: |
           input="${{ github.event.inputs.date }}"
+          if [ "$input" == "default" ]; then
+            input=$(export TZ="Asia/Tokyo" && date +'%Y%m%d')
+          fi
+
           if [[ ! $input =~ ^[0-9]{8}$ ]]; then
             echo "Error: date is not [YYYYmmdd HHMMSS] format"
             exit 1
           fi
+
+          echo $input
 
       - name: run echo
         run: echo "workflow dispatch trigger"
