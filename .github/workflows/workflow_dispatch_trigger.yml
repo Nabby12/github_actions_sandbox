@@ -1,7 +1,6 @@
 name: workflow dispatch trigger
 
 on:
-  push:
   workflow_dispatch:
     inputs:
       date:
