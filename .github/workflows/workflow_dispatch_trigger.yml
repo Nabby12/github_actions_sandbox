@@ -1,12 +1,13 @@
 name: workflow dispatch trigger
 
 on:
+  push:
   workflow_dispatch:
     inputs:
       date:
-        description: 'YYYYmmdd (ex. 19910101)'
+        description: 'YYYYmmdd (ex. 19910101, "default"の場合本日の日付)'
         required: true
-        default: ${{ export TZ="Asia/Tokyo" && date +'%Y%m%d' }}
+        default: default
 
 jobs:
   job1:
@@ -17,7 +18,12 @@ jobs:
     steps:
       - name: validate input
         run: |
-          input="${{ github.event.inputs.date }}"
+          # input="${{ github.event.inputs.date }}"
+          input=default
+          if [ "$input" == "default" ]; then
+            input=$(export TZ="America/New_York" && date +'%Y%m%d')
+          fi
+
           if [[ ! $input =~ ^[0-9]{8}$ ]]; then
             echo "Error: date is not [YYYYmmdd HHMMSS] format"
             exit 1
