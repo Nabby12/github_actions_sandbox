@@ -15,7 +15,7 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - name: validate input
+      - name: add input to env
         run: |
           input="${{ github.event.inputs.date }}"
           if [ "$input" == "default" ]; then
@@ -27,7 +27,7 @@ jobs:
             exit 1
           fi
 
-          echo $input
+          echo "date=${input}" >> "$GITHUB_ENV"
 
       - name: run echo
-        run: echo "workflow dispatch trigger"
+        run: echo $date && echo "workflow dispatch trigger"
