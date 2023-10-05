@@ -1,6 +1,7 @@
 name: workflow dispatch trigger
 
 on:
+  push:
   workflow_dispatch:
     inputs:
       date:
@@ -15,9 +16,10 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - name: validate input
+      - name: add input to env
         run: |
-          input="${{ github.event.inputs.date }}"
+          # input="${{ github.event.inputs.date }}"
+          input = "default"
           if [ "$input" == "default" ]; then
             input=$(export TZ="Asia/Tokyo" && date +'%Y%m%d')
           fi
@@ -27,7 +29,7 @@ jobs:
             exit 1
           fi
 
-          echo $input
+          echo $input >> "$GITHUB_ENV"
 
       - name: run echo
-        run: echo "workflow dispatch trigger"
+        run: echo $input && echo "workflow dispatch trigger"
