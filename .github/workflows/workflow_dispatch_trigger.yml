@@ -1,6 +1,7 @@
 name: workflow dispatch trigger
 
 on:
+  push:
   workflow_dispatch:
     inputs:
       date:
@@ -17,8 +18,9 @@ jobs:
     steps:
       - name: validate input
         run: |
-          input="${{ github.event.inputs.date }}"
-          pattern="^\d{14}$"
+          # input="${{ github.event.inputs.date }}"
+          input="12345678901234"
+          pattern="[0-9]{14}"
           if ! [[ "$input" =~ "$pattern" ]]; then
             echo "Error: date is not [YYYYmmdd HHMMSS] format"
             exit 1
