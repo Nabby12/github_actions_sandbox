@@ -2,6 +2,11 @@ name: workflow dispatch trigger
 
 on:
   workflow_dispatch:
+    inputs:
+      date:
+        description: 'YYYYmmdd HHMMSS format (ex. 20231005 123456)'
+        required: true
+        default: $(export TZ="Asia/Tokyo" && date +'%Y%m%d %H%M%S')
 
 jobs:
   job1:
@@ -10,5 +15,13 @@ jobs:
     timeout-minutes: 5
 
     steps:
+      - name: validate input
+        run: |
+          input="${{ github.event.inputs.date }}"
+          if [[ ! "$input" =~ ^[0-9]{8}\s[0-9]{6}$ ]]; then
+            echo "エラー: dateは[YYYYmmdd HHMMSS]形式で指定してください。"
+            exit 1
+          fi
+
       - name: run echo
         run: echo "workflow dispatch trigger"
